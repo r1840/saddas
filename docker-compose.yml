@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: cryptovest-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: cryptovest
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./scripts/001_create_tables.sql:/docker-entrypoint-initdb.d/001_create_tables.sql:ro
+      - ./scripts/002_add_auto_trading.sql:/docker-entrypoint-initdb.d/002_add_auto_trading.sql:ro
+
+volumes:
+  pgdata:

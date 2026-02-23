@@ -1,0 +1,9 @@
+node_modules/
+.next/
+.pglite/
+.env.local
+.env*
+!.env.local.example
+admin/node_modules/
+admin/.next/
+*.log
