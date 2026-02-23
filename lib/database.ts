@@ -70,10 +70,16 @@ async function initSchema(client: DbLike): Promise<void> {
 async function getDb(): Promise<DbLike> {
   if (!db) {
     if (process.env.DATABASE_URL) {
-      const connectionString = process.env.DATABASE_URL;
+      const rawConnectionString = process.env.DATABASE_URL;
+      const connectionString = rawConnectionString.trim().replace(/\r?\n/g, '');
+      const isSupabase = connectionString.includes('supabase.com');
+      const normalizedConnectionString = isSupabase && !connectionString.includes('sslmode=')
+        ? `${connectionString}${connectionString.includes('?') ? '&' : '?'}sslmode=require`
+        : connectionString;
+
       const pool = new Pool({
-        connectionString,
-        ssl: connectionString.includes('supabase.com')
+        connectionString: normalizedConnectionString,
+        ssl: isSupabase
           ? { rejectUnauthorized: false }
           : undefined,
       });
