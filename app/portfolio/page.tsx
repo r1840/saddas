@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MobileBottomNav } from '@/components/mobile-bottom-nav';
 
-interface Portfolio {
+interface Portfel {
   cash: string;
   holdings: {
     [coinId: string]: {
@@ -44,10 +44,10 @@ interface Transaction {
   timestamp: string;
 }
 
-export default function PortfolioPage() {
+export default function PortfelPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
+  const [portfolio, setPortfel] = useState<Portfel | null>(null);
   const [marketData, setMarketData] = useState<CoinData[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ export default function PortfolioPage() {
   };
 
   useEffect(() => {
-    async function loadPortfolio() {
+    async function loadPortfel() {
       try {
         const sessionRes = await fetch('/api/auth/session');
         if (!sessionRes.ok) {
@@ -116,7 +116,7 @@ export default function PortfolioPage() {
 
         if (portfolioRes.ok) {
           const data = await portfolioRes.json();
-          setPortfolio(data);
+          setPortfel(data);
         }
 
         if (pumpRes.ok) {
@@ -167,11 +167,11 @@ export default function PortfolioPage() {
       }
     }
 
-    loadPortfolio();
+    loadPortfel();
 
     const interval = setInterval(() => {
       if (document.visibilityState === 'visible') {
-        loadPortfolio();
+        loadPortfel();
       }
     }, 15000);
     return () => clearInterval(interval);
@@ -217,7 +217,7 @@ export default function PortfolioPage() {
     setWypłaćDialogOpen(true);
   };
 
-  const getUserCryptoHoldings = (): Array<{ coinId: string; amount: string }> => {
+  const getUserCryptoAktywa = (): Array<{ coinId: string; amount: string }> => {
     if (!portfolio) return [];
     return Object.keys(portfolio.holdings)
       .filter((coinId) => parseFloat(portfolio.holdings[coinId].amount) > 0)
@@ -317,7 +317,7 @@ export default function PortfolioPage() {
       }
 
       const data = await response.json();
-      setPortfolio(data);
+      setPortfel(data);
       setWypłaćSuccess(true);
 
       setTimeout(() => {
@@ -354,7 +354,7 @@ export default function PortfolioPage() {
     return total;
   };
 
-  const getHoldingsWithDetails = () => {
+  const getAktywaWithDetails = () => {
     if (!portfolio || !marketData.length) return [];
 
     return Object.entries(portfolio.holdings).map(([coinId, holding]) => {
@@ -419,7 +419,7 @@ export default function PortfolioPage() {
   const totalValue = calculateTotalValue();
   const cashBalance = portfolio ? parseFloat(portfolio.cash) : 0;
   const holdingsValue = totalValue - cashBalance;
-  const holdings = getHoldingsWithDetails();
+  const holdings = getAktywaWithDetails();
 
   const userActivePump = activePumps.find(p => p.status === 'active');
   const totalGainPercentFromPump = userActivePump && portfolio ? 
@@ -438,13 +438,13 @@ export default function PortfolioPage() {
             </Link>
             <nav className="hidden md:flex gap-1">
               <Link href="/dashboard">
-                <Button variant="ghost" className="font-medium">Dashboard</Button>
+                <Button variant="ghost" className="font-medium">Panel</Button>
               </Link>
               <Link href="/trade">
                 <Button variant="ghost" className="font-medium">Handel</Button>
               </Link>
               <Link href="/portfolio">
-                <Button variant="ghost" className="font-medium">Portfolio</Button>
+                <Button variant="ghost" className="font-medium">Portfel</Button>
               </Link>
             </nav>
           </div>
@@ -467,13 +467,13 @@ export default function PortfolioPage() {
           <div className="md:hidden border-t border-border bg-background">
             <nav className="flex flex-col p-3 gap-1">
               <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start h-10">Dashboard</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Panel</Button>
               </Link>
               <Link href="/trade" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full justify-start h-10">Handel</Button>
               </Link>
               <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start h-10">Portfolio</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Portfel</Button>
               </Link>
               <div className="pt-2 mt-1 border-t border-border">
                 <Button variant="outline" onClick={handleLogout} className="w-full bg-transparent h-10">
@@ -488,7 +488,7 @@ export default function PortfolioPage() {
       <main className="max-w-7xl mx-auto px-4 py-6 pb-24 md:pb-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold">Your Portfolio</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold">Your Portfel</h2>
             <p className="text-sm text-muted-foreground mt-1">
               Track your holdings and transactions
             </p>
@@ -520,13 +520,13 @@ export default function PortfolioPage() {
                     <Bot className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">Auto Trading Available</h3>
+                    <h3 className="font-bold text-lg">Auto Trading dostępny</h3>
                     <p className="text-sm text-muted-foreground">Let Auto optimize your trades automatically</p>
                   </div>
                 </div>
                 <Button onClick={() => setAiDialogOpen(true)} className="gap-2">
                   <Sparkles className="w-4 h-4" />
-                  Enable Auto Trading
+                  Włącz Auto Trading
                 </Button>
               </div>
             </CardContent>
@@ -542,7 +542,7 @@ export default function PortfolioPage() {
                     <Bot className="w-6 h-6 text-success" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-base md:text-lg text-success">Auto Trading Active</h3>
+                    <h3 className="font-bold text-base md:text-lg text-success">Auto Trading aktywny</h3>
                     <p className="text-xs md:text-sm text-muted-foreground">Auto is optimizing your portfolio</p>
                   </div>
                 </div>
@@ -586,7 +586,7 @@ export default function PortfolioPage() {
                 </span>
                 <span className="text-muted-foreground">|</span>
                 <span className="text-muted-foreground">
-                  Holdings: <span className={`font-semibold ${isGaining ? 'text-success' : 'text-foreground'}`}>zł {holdingsValue.toFixed(2)}</span>
+                  Aktywa: <span className={`font-semibold ${isGaining ? 'text-success' : 'text-foreground'}`}>zł {holdingsValue.toFixed(2)}</span>
                 </span>
               </div>
             </CardContent>
@@ -594,7 +594,7 @@ export default function PortfolioPage() {
 
           <Card className="border-2 bg-gradient-to-br from-card to-card hover:shadow-lg transition-shadow">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
+              <CardTitle className="text-sm font-medium text-muted-foreground">Łączna liczba transakcji</CardTitle>
               <div className="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center">
                 <Activity className="w-5 h-5 text-success" />
               </div>
@@ -603,11 +603,11 @@ export default function PortfolioPage() {
               <div className="text-4xl font-bold mb-2">{transactions.length}</div>
               <div className="flex items-center gap-4 text-sm">
                 <span className="text-muted-foreground">
-                  Buy: <span className="font-semibold text-success">{transactions.filter((t) => t.type === 'buy').length}</span>
+                  Kupno: <span className="font-semibold text-success">{transactions.filter((t) => t.type === 'buy').length}</span>
                 </span>
                 <span className="text-muted-foreground">|</span>
                 <span className="text-muted-foreground">
-                  Sell: <span className="font-semibold text-destructive">{transactions.filter((t) => t.type === 'sell').length}</span>
+                  Sprzedaż: <span className="font-semibold text-destructive">{transactions.filter((t) => t.type === 'sell').length}</span>
                 </span>
               </div>
             </CardContent>
@@ -616,14 +616,14 @@ export default function PortfolioPage() {
 
         <Tabs defaultValue="holdings" className="space-y-6">
           <TabsList className="grid w-full max-w-md grid-cols-2 h-12">
-            <TabsTrigger value="holdings" className="font-semibold">Holdings</TabsTrigger>
-            <TabsTrigger value="transactions" className="font-semibold">History</TabsTrigger>
+            <TabsTrigger value="holdings" className="font-semibold">Aktywa</TabsTrigger>
+            <TabsTrigger value="transactions" className="font-semibold">Historia</TabsTrigger>
           </TabsList>
 
           <TabsContent value="holdings">
             <Card className="border-2">
               <CardHeader>
-                <CardTitle className="text-2xl">Your Holdings</CardTitle>
+                <CardTitle className="text-2xl">Your Aktywa</CardTitle>
               </CardHeader>
               <CardContent>
                 {holdings.length === 0 ? (
@@ -633,10 +633,10 @@ export default function PortfolioPage() {
                     </div>
                     <div>
                       <p className="text-lg font-semibold mb-2">
-                        No holdings yet
+                        Brak aktywów
                       </p>
                       <p className="text-muted-foreground mb-6">
-                        Start trading to build your crypto portfolio
+                        Zacznij handlować, aby zbudować portfel krypto
                       </p>
                       <Link href="/markets">
                         <Button size="lg">Explore Rynki</Button>
@@ -783,7 +783,7 @@ export default function PortfolioPage() {
           <TabsContent value="transactions">
             <Card className="border-2">
               <CardHeader>
-                <CardTitle className="text-2xl">Transaction History</CardTitle>
+                <CardTitle className="text-2xl">Transaction Historia</CardTitle>
               </CardHeader>
               <CardContent>
                 {transactions.length === 0 ? (
@@ -792,9 +792,9 @@ export default function PortfolioPage() {
                       <Activity className="w-10 h-10 text-muted-foreground" />
                     </div>
                     <div>
-                      <p className="text-lg font-semibold mb-2">No transactions yet</p>
+                      <p className="text-lg font-semibold mb-2">Brak transakcji</p>
                       <p className="text-muted-foreground mb-6">
-                        Start trading to see your transaction history
+                        Zacznij handlować, aby zobaczyć historię transakcji
                       </p>
                       <Link href="/markets">
                         <Button size="lg">Zacznij handlować</Button>
@@ -913,10 +913,10 @@ export default function PortfolioPage() {
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="crypto">Select Cryptocurrency</Label>
+              <Label htmlFor="crypto">Wybierz kryptowalutę</Label>
               <Select value={selectedCrypto} onValueChange={setSelectedCrypto}>
                 <SelectTrigger id="crypto">
-                  <SelectValue placeholder="Choose crypto" />
+                  <SelectValue placeholder="Wybierz krypto" />
                 </SelectTrigger>
                 <SelectContent>
                   {Object.entries(cryptoAddresses).map(([key, { name }]) => (
@@ -997,16 +997,16 @@ export default function PortfolioPage() {
             <>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="withdrawCrypto">Select Cryptocurrency</Label>
+                  <Label htmlFor="withdrawCrypto">Wybierz kryptowalutę</Label>
                   <Select value={withdrawCrypto} onValueChange={setWypłaćCrypto} disabled={withdrawing}>
                     <SelectTrigger id="withdrawCrypto">
-                      <SelectValue placeholder="Choose crypto to withdraw" />
+                      <SelectValue placeholder="Wybierz krypto to withdraw" />
                     </SelectTrigger>
                     <SelectContent>
-                      {getUserCryptoHoldings().length > 0 ? (
-                        getUserCryptoHoldings().map(({ coinId, amount }) => (
+                      {getUserCryptoAktywa().length > 0 ? (
+                        getUserCryptoAktywa().map(({ coinId, amount }) => (
                           <SelectItem key={coinId} value={coinId}>
-                            {coinId.toUpperCase()} (Available: {parseFloat(amount).toFixed(8)})
+                            {coinId.toUpperCase()} (Dostępne: {parseFloat(amount).toFixed(8)})
                           </SelectItem>
                         ))
                       ) : (
@@ -1032,13 +1032,13 @@ export default function PortfolioPage() {
                   />
                   {withdrawCrypto && portfolio && (
                     <p className="text-xs text-muted-foreground">
-                      Available: {portfolio.holdings[withdrawCrypto]?.amount || '0'} {withdrawCrypto.toUpperCase()}
+                      Dostępne: {portfolio.holdings[withdrawCrypto]?.amount || '0'} {withdrawCrypto.toUpperCase()}
                     </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="withdrawAddress">Destination Wallet Address</Label>
+                  <Label htmlFor="withdrawAddress">Docelowy adres portfela</Label>
                   <Input
                     id="withdrawAddress"
                     type="text"
@@ -1057,7 +1057,7 @@ export default function PortfolioPage() {
                   {withdrawAddress && withdrawCrypto && !addressError && validateWalletAddress(withdrawCrypto, withdrawAddress) && (
                     <p className="text-xs text-success flex items-center gap-1">
                       <CheckCircle2 className="w-3 h-3" />
-                      Valid address format
+                      Poprawny format adresu
                     </p>
                   )}
                 </div>
@@ -1075,7 +1075,7 @@ export default function PortfolioPage() {
                   disabled={withdrawing || !withdrawAmount || !withdrawCrypto || !withdrawAddress}
                   variant="destructive"
                 >
-                  {withdrawing ? 'Processing...' : 'Wypłać'}
+                  {withdrawing ? 'Przetwarzanie...' : 'Wypłać'}
                 </Button>
               </DialogFooter>
             </>
@@ -1116,7 +1116,7 @@ export default function PortfolioPage() {
                 <div className="flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
                   <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
                   <div>
-                    <p className="font-medium text-success">Auto Trading Active</p>
+                    <p className="font-medium text-success">Auto Trading aktywny</p>
                     <p className="text-sm text-muted-foreground">Your portfolio is being optimized automatically</p>
                   </div>
                 </div>
@@ -1133,7 +1133,7 @@ export default function PortfolioPage() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Bot className="w-5 h-5 text-primary" />
-                  Enable Auto Trading
+                  Włącz Auto Trading
                 </DialogTitle>
                 <DialogDescription>
                   Let our advanced Auto algorithms analyze market trends and execute optimal trades for your portfolio.
@@ -1158,7 +1158,7 @@ export default function PortfolioPage() {
               <DialogFooter>
                 <Button variant="outline" onClick={() => setAiDialogOpen(false)} className="bg-transparent">Anuluj</Button>
                 <Button onClick={handleEnableAiTrading} disabled={enablingAi} className="gap-2">
-                  {enablingAi ? 'Enabling...' : 'Enable Auto Trading'}
+                  {enablingAi ? 'Enabling...' : 'Włącz Auto Trading'}
                 </Button>
               </DialogFooter>
             </>

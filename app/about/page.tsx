@@ -73,7 +73,7 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <div className="text-3xl font-bold">24/7</div>
-                    <div className="text-sm text-muted-foreground">Trading Support</div>
+                    <div className="text-sm text-muted-foreground">Wsparcie handlu</div>
                   </div>
                 </div>
 
@@ -150,7 +150,7 @@ export default function AboutPage() {
             Join the future of finance
           </h2>
           <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8 text-pretty leading-relaxed">
-            Start your cryptocurrency journey today with CryptoVest
+            Rozpocznij swoją przygodę z kryptowalutami już dziś z CryptoVest
           </p>
           <Link href="/register">
             <Button size="lg" variant="secondary" className="gap-2 bg-primary-foreground text-primary hover:bg-primary-foreground/90 h-12 px-8">
@@ -172,10 +172,10 @@ export default function AboutPage() {
             </div>
             <div className="flex gap-6">
               <Link href="/terms" className="hover:text-foreground transition-colors">
-                Terms of Service
+                Regulamin
               </Link>
               <Link href="/privacy" className="hover:text-foreground transition-colors">
-                Privacy Policy
+                Polityka prywatności
               </Link>
             </div>
           </div>

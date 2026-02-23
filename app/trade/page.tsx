@@ -26,7 +26,7 @@ interface CoinData {
   low_24h: number;
 }
 
-interface Portfolio {
+interface Portfel {
   cash: string;
   holdings: {
     [coinId: string]: {
@@ -42,7 +42,7 @@ function HandelPageContent() {
   const coinId = searchParams.get('coin') || 'bitcoin';
 
   const [coin, setCoin] = useState<CoinData | null>(null);
-  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
+  const [portfolio, setPortfel] = useState<Portfel | null>(null);
   const [amount, setAmount] = useState('');
   const [loading, setLoading] = useState(true);
   const [trading, setTrading] = useState(false);
@@ -77,7 +77,7 @@ function HandelPageContent() {
 
         if (portfolioRes.ok) {
           const portfolioData = await portfolioRes.json();
-          setPortfolio(portfolioData);
+          setPortfel(portfolioData);
         }
       } catch (err) {
       } finally {
@@ -119,7 +119,7 @@ function HandelPageContent() {
 
       setSuccess(`Successfully ${type === 'buy' ? 'bought' : 'sold'} ${amount} ${coin?.symbol.toUpperCase()}`);
       setAmount('');
-      setPortfolio(data.portfolio);
+      setPortfel(data.portfolio);
 
       setTimeout(() => {
         router.push('/portfolio');
@@ -166,7 +166,7 @@ function HandelPageContent() {
   const cashBalance = parseFloat(portfolio.cash);
   const holding = portfolio.holdings[coin.id];
   const holdingAmount = holding ? parseFloat(holding.amount) : 0;
-  const maxBuy = cashBalance / coin.current_price;
+  const maxKup = cashBalance / coin.current_price;
   const estimatedTotal = amount ? parseFloat(amount) * coin.current_price : 0;
 
   return (
@@ -182,13 +182,13 @@ function HandelPageContent() {
             </Link>
             <nav className="hidden md:flex gap-1">
               <Link href="/dashboard">
-                <Button variant="ghost" className="font-medium">Dashboard</Button>
+                <Button variant="ghost" className="font-medium">Panel</Button>
               </Link>
               <Link href="/markets">
                 <Button variant="ghost" className="font-medium">Rynki</Button>
               </Link>
               <Link href="/portfolio">
-                <Button variant="ghost" className="font-medium">Portfolio</Button>
+                <Button variant="ghost" className="font-medium">Portfel</Button>
               </Link>
             </nav>
           </div>
@@ -201,7 +201,7 @@ function HandelPageContent() {
       <main className="max-w-4xl mx-auto px-4 py-6 pb-24 md:pb-8 space-y-6">
         <Link href="/markets" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
           <span>←</span>
-          <span>Back to Rynki</span>
+          <span>Powrót do rynków</span>
         </Link>
 
         <div className="flex items-center gap-4 p-6 bg-card border-2 border-border rounded-2xl">
@@ -236,7 +236,7 @@ function HandelPageContent() {
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="border-2">
             <CardHeader>
-              <CardTitle className="text-xl">Market Stats</CardTitle>
+              <CardTitle className="text-xl">Statystyki rynku</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center py-2">
@@ -264,17 +264,17 @@ function HandelPageContent() {
 
           <Card className="border-2 bg-gradient-to-br from-card to-card">
             <CardHeader>
-              <CardTitle className="text-xl">Your Balance</CardTitle>
+              <CardTitle className="text-xl">Twoje saldo</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex justify-between items-center py-2">
-                <span className="text-muted-foreground font-medium">Cash Available</span>
+                <span className="text-muted-foreground font-medium">Dostępna gotówka</span>
                 <span className="font-bold text-lg text-success">
                   ${cashBalance.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </span>
               </div>
               <div className="flex justify-between items-center py-2">
-                <span className="text-muted-foreground font-medium">{coin.symbol.toUpperCase()} Holdings</span>
+                <span className="text-muted-foreground font-medium">{coin.symbol.toUpperCase()} Aktywa</span>
                 <span className="font-semibold text-lg">
                   {holdingAmount.toFixed(4)}
                 </span>
@@ -282,7 +282,7 @@ function HandelPageContent() {
               {holding && (
                 <>
                   <div className="flex justify-between items-center py-2">
-                    <span className="text-muted-foreground font-medium">Avg Buy Cena</span>
+                    <span className="text-muted-foreground font-medium">Śr. cena zakupu</span>
                     <span className="font-semibold text-lg">
                       ${parseFloat(holding.averagePrice).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </span>
@@ -311,8 +311,8 @@ function HandelPageContent() {
           <CardContent>
             <Tabs defaultValue="buy" className="space-y-6">
               <TabsList className="grid w-full grid-cols-2 h-12">
-                <TabsTrigger value="buy" className="font-semibold text-base">Buy</TabsTrigger>
-                <TabsTrigger value="sell" className="font-semibold text-base">Sell</TabsTrigger>
+                <TabsTrigger value="buy" className="font-semibold text-base">Kup</TabsTrigger>
+                <TabsTrigger value="sell" className="font-semibold text-base">Sprzedaj</TabsTrigger>
               </TabsList>
 
               <TabsContent value="buy" className="space-y-5">
@@ -343,7 +343,7 @@ function HandelPageContent() {
                     className="h-12 text-base border-2"
                   />
                   <p className="text-sm text-muted-foreground font-medium">
-                    Max: {maxBuy.toFixed(8)} {coin.symbol.toUpperCase()}
+                    Max: {maxKup.toFixed(8)} {coin.symbol.toUpperCase()}
                   </p>
                 </div>
 
@@ -371,7 +371,7 @@ function HandelPageContent() {
                     onClick={() => handleHandel('buy')}
                     disabled={trading || !amount || parseFloat(amount) <= 0 || estimatedTotal > cashBalance}
                   >
-                    {trading ? 'Processing Handel...' : `Buy ${coin.symbol.toUpperCase()}`}
+                    {trading ? 'Przetwarzanie transakcji...' : `Kup ${coin.symbol.toUpperCase()}`}
                   </Button>
                 </div>
                 
@@ -397,7 +397,7 @@ function HandelPageContent() {
                 {holdingAmount === 0 ? (
                   <Alert className="border-2">
                     <AlertDescription className="font-medium">
-                      You don't own any {coin.symbol.toUpperCase()} to sell. Buy some first to start trading.
+                      Nie posiadasz {coin.symbol.toUpperCase()} to sell. Kup some first to start trading.
                     </AlertDescription>
                   </Alert>
                 ) : (
@@ -419,7 +419,7 @@ function HandelPageContent() {
                         className="h-12 text-base border-2"
                       />
                       <p className="text-sm text-muted-foreground font-medium">
-                        Available: {holdingAmount.toFixed(8)} {coin.symbol.toUpperCase()}
+                        Dostępne: {holdingAmount.toFixed(8)} {coin.symbol.toUpperCase()}
                       </p>
                     </div>
 
@@ -453,7 +453,7 @@ function HandelPageContent() {
                           parseFloat(amount) > holdingAmount
                         }
                       >
-                        {trading ? 'Processing Handel...' : `Sell ${coin.symbol.toUpperCase()}`}
+                        {trading ? 'Przetwarzanie transakcji...' : `Sprzedaj ${coin.symbol.toUpperCase()}`}
                       </Button>
                     </div>
                     

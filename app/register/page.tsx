@@ -14,9 +14,9 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setNazwa użytkownika] = useState('');
+  const [email, setE-mail] = useState('');
+  const [password, setHasło] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [promoCode, setPromoCode] = useState('');
@@ -68,7 +68,7 @@ export default function RegisterPage() {
             Get started
           </CardTitle>
           <CardDescription className="text-center text-base">
-            Create your account to start trading cryptocurrencies
+            Utwórz konto, aby zacząć handlować kryptowalutami
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -80,13 +80,13 @@ export default function RegisterPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-semibold">Username</Label>
+              <Label htmlFor="username" className="text-sm font-semibold">Nazwa użytkownika</Label>
               <Input
                 id="username"
                 type="text"
                 placeholder="Choose a username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setNazwa użytkownika(e.target.value)}
                 required
                 disabled={loading}
                 className="h-11 border-2"
@@ -94,13 +94,13 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-semibold">Email</Label>
+              <Label htmlFor="email" className="text-sm font-semibold">E-mail</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="Enter your email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setE-mail(e.target.value)}
                 required
                 disabled={loading}
                 className="h-11 border-2"
@@ -108,13 +108,13 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-semibold">Password</Label>
+              <Label htmlFor="password" className="text-sm font-semibold">Hasło</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Create a password (min 6 characters)"
+                placeholder="Utwórz hasło (min. 6 znaków)"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setHasło(e.target.value)}
                 required
                 disabled={loading}
                 minLength={6}
@@ -123,7 +123,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dob" className="text-sm font-semibold">Date of Birth</Label>
+              <Label htmlFor="dob" className="text-sm font-semibold">Data urodzenia</Label>
               <Input
                 id="dob"
                 type="date"
@@ -140,7 +140,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="promoCode" className="text-sm font-semibold">Promo Code (Optional)</Label>
+              <Label htmlFor="promoCode" className="text-sm font-semibold">Kod promocyjny (opcjonalnie)</Label>
               <div className="relative">
                 <Input
                   id="promoCode"
@@ -174,24 +174,24 @@ export default function RegisterPage() {
                 className="mt-1 w-4 h-4"
               />
               <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer font-normal">
-                {'I agree to the '}
+                {'Akceptuję '}
                 <Link href="/terms" className="text-primary hover:underline font-semibold" target="_blank">
-                  Terms of Service
+                  Regulamin
                 </Link>
                 {' and '}
                 <Link href="/privacy" className="text-primary hover:underline font-semibold" target="_blank">
-                  Privacy Policy
+                  Polityka prywatności
                 </Link>
               </Label>
             </div>
 
             <Button type="submit" className="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading || !agreedToTerms}>
-              {loading ? 'Creating account...' : 'Create Account'}
+              {loading ? 'Tworzenie konta...' : 'Utwórz konto'}
             </Button>
           </form>
 
           <div className="mt-6 text-center text-sm">
-            <span className="text-muted-foreground">{'Already have an account? '}</span>
+            <span className="text-muted-foreground">{'Masz już konto? '}</span>
             <Link href="/login" className="text-primary hover:underline font-semibold">
               Sign in
             </Link>

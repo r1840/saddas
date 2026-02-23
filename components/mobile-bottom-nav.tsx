@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { BarChart3, LayoutDashboard, Shield, TrendingUp, Wallet } from 'lucide-react';
+import { BarChart3, LayoutPanel, Shield, TrendingUp, Wallet } from 'lucide-react';
 
 interface MobileBottomNavProps {
   current: 'dashboard' | 'markets' | 'trade' | 'portfolio' | 'admin';
@@ -12,10 +12,10 @@ interface MobileBottomNavProps {
 export function MobileBottomNav({ current, isAdmin = false }: MobileBottomNavProps) {
   const items = useMemo(() => {
     const base = [
-      { key: 'dashboard', label: 'Start', href: '/dashboard', icon: LayoutDashboard },
+      { key: 'dashboard', label: 'Start', href: '/dashboard', icon: LayoutPanel },
       { key: 'markets', label: 'Rynki', href: '/markets', icon: BarChart3 },
       { key: 'trade', label: 'Handel', href: '/trade?coin=bitcoin', icon: TrendingUp },
-      { key: 'portfolio', label: 'Portfolio', href: '/portfolio', icon: Wallet },
+      { key: 'portfolio', label: 'Portfel', href: '/portfolio', icon: Wallet },
     ] as const;
 
     if (isAdmin) {

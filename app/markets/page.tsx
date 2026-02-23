@@ -116,13 +116,13 @@ export default function RynkiPage() {
             {authenticated && (
               <nav className="hidden md:flex gap-1">
                 <Link href="/dashboard">
-                  <Button variant="ghost" className="font-medium">Dashboard</Button>
+                  <Button variant="ghost" className="font-medium">Panel</Button>
                 </Link>
                 <Link href="/trade">
                   <Button variant="ghost" className="font-medium">Handel</Button>
                 </Link>
                 <Link href="/portfolio">
-                  <Button variant="ghost" className="font-medium">Portfolio</Button>
+                  <Button variant="ghost" className="font-medium">Portfel</Button>
                 </Link>
               </nav>
             )}
@@ -159,13 +159,13 @@ export default function RynkiPage() {
               {authenticated ? (
                 <>
                   <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start h-10">Dashboard</Button>
+                    <Button variant="ghost" className="w-full justify-start h-10">Panel</Button>
                   </Link>
                   <Link href="/trade" onClick={() => setMobileMenuOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start h-10">Handel</Button>
                   </Link>
                   <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" className="w-full justify-start h-10">Portfolio</Button>
+                    <Button variant="ghost" className="w-full justify-start h-10">Portfel</Button>
                   </Link>
                   <div className="pt-2 mt-1 border-t border-border">
                     <Button variant="outline" onClick={handleLogout} className="w-full bg-transparent h-10">
@@ -234,7 +234,7 @@ export default function RynkiPage() {
                     </Link>
                   ) : (
                     <Link href="/register">
-                      <Button variant="outline" className="w-full">Create account to trade</Button>
+                      <Button variant="outline" className="w-full">Utwórz konto, aby handlować</Button>
                     </Link>
                   )}
                 </div>

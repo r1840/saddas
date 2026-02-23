@@ -122,7 +122,7 @@ export default function NaukaPage() {
               <div className="w-12 h-12 bg-success/10 rounded-xl flex items-center justify-center mb-4">
                 <Lightbulb className="w-6 h-6 text-success" />
               </div>
-              <CardTitle className="text-xl">Portfolio management</CardTitle>
+              <CardTitle className="text-xl">Portfel management</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground leading-relaxed mb-4">

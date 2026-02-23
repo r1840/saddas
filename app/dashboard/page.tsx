@@ -15,7 +15,7 @@ interface User {
   isAdmin: boolean;
 }
 
-interface Portfolio {
+interface Portfel {
   cash: string;
   pumpGainPercent?: number;
   holdings: {
@@ -57,10 +57,10 @@ interface Pump {
   isActive: boolean;
 }
 
-export default function DashboardPage() {
+export default function PanelPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
+  const [portfolio, setPortfel] = useState<Portfel | null>(null);
   const [marketData, setMarketData] = useState<CoinData[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -72,7 +72,7 @@ export default function DashboardPage() {
   const [activePump, setActivePump] = useState<Pump | null>(null);
 
   useEffect(() => {
-    async function loadDashboard() {
+    async function loadPanel() {
       if (typeof document !== 'undefined' && document.visibilityState !== 'visible') return;
       try {
         const sessionRes = await fetch('/api/auth/session');
@@ -94,7 +94,7 @@ export default function DashboardPage() {
 
         if (portfolioRes.ok) {
           const portfolioData = await portfolioRes.json();
-          setPortfolio(portfolioData);
+          setPortfel(portfolioData);
         }
 
         if (marketRes.ok) {
@@ -119,17 +119,17 @@ export default function DashboardPage() {
           setAiTradingEnabled(aiData.enabled);
         }
       } catch (error) {
-        console.error('[app] Dashboard load error:', error);
+        console.error('[app] Panel load error:', error);
       } finally {
         setLoading(false);
       }
     }
 
-    loadDashboard();
+    loadPanel();
 
     const interval = setInterval(() => {
       if (document.visibilityState === 'visible') {
-        loadDashboard();
+        loadPanel();
       }
     }, 5000);
 
@@ -215,13 +215,13 @@ export default function DashboardPage() {
             </Link>
             <nav className="hidden md:flex gap-1">
               <Link href="/dashboard">
-                <Button variant="ghost" className="font-medium">Dashboard</Button>
+                <Button variant="ghost" className="font-medium">Panel</Button>
               </Link>
               <Link href="/trade">
                 <Button variant="ghost" className="font-medium">Handel</Button>
               </Link>
               <Link href="/portfolio">
-                <Button variant="ghost" className="font-medium">Portfolio</Button>
+                <Button variant="ghost" className="font-medium">Portfel</Button>
               </Link>
               {user?.isAdmin && (
                 <Link href="/admin">
@@ -252,13 +252,13 @@ export default function DashboardPage() {
           <div className="md:hidden border-t border-border bg-background">
             <nav className="flex flex-col p-3 gap-1">
               <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start h-10">Dashboard</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Panel</Button>
               </Link>
               <Link href="/trade" onClick={() => setMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full justify-start h-10">Handel</Button>
               </Link>
               <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" className="w-full justify-start h-10">Portfolio</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Portfel</Button>
               </Link>
               {user?.isAdmin && (
                 <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
@@ -333,13 +333,13 @@ export default function DashboardPage() {
                     <Bot className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-lg">Auto Trading Available</h3>
+                    <h3 className="font-bold text-lg">Auto Trading dostępny</h3>
                     <p className="text-sm text-muted-foreground">Let Auto optimize your trades automatically</p>
                   </div>
                 </div>
                 <Button onClick={() => setAiDialogOpen(true)} className="gap-2">
                   <Sparkles className="w-4 h-4" />
-                  Enable Auto Trading
+                  Włącz Auto Trading
                 </Button>
               </div>
             </CardContent>
@@ -355,7 +355,7 @@ export default function DashboardPage() {
                     <Bot className="w-6 h-6 text-success" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-base md:text-lg text-success">Auto Trading Active</h3>
+                    <h3 className="font-bold text-base md:text-lg text-success">Auto Trading aktywny</h3>
                     <p className="text-xs md:text-sm text-muted-foreground">Auto is optimizing your portfolio</p>
                   </div>
                 </div>
@@ -408,7 +408,7 @@ export default function DashboardPage() {
                 ${cashBalance.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
               <p className="text-sm text-muted-foreground">
-                Available for trading
+                Dostępne do handlu
               </p>
             </CardContent>
           </Card>
@@ -493,7 +493,7 @@ export default function DashboardPage() {
                     <Activity className="w-8 h-8 text-muted-foreground" />
                   </div>
                   <p className="text-muted-foreground mb-4">
-                    No transactions yet. Start trading!
+                    Brak transakcji. Zacznij handlować!
                   </p>
                   <Link href="/markets">
                     <Button size="sm">Explore Rynki</Button>
@@ -587,7 +587,7 @@ export default function DashboardPage() {
                 <div className="flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
                   <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
                   <div>
-                    <p className="font-medium text-success">Auto Trading Active</p>
+                    <p className="font-medium text-success">Auto Trading aktywny</p>
                     <p className="text-sm text-muted-foreground">Your portfolio is being optimized automatically</p>
                   </div>
                 </div>
@@ -604,7 +604,7 @@ export default function DashboardPage() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Bot className="w-5 h-5 text-primary" />
-                  Enable Auto Trading
+                  Włącz Auto Trading
                 </DialogTitle>
                 <DialogDescription>
                   Let our advanced Auto algorithms analyze market trends and execute optimal trades for your portfolio.
@@ -629,7 +629,7 @@ export default function DashboardPage() {
               <DialogFooter>
                 <Button variant="outline" onClick={() => setAiDialogOpen(false)} className="bg-transparent">Anuluj</Button>
                 <Button onClick={handleEnableAiTrading} disabled={enablingAi} className="gap-2">
-                  {enablingAi ? 'Enabling...' : 'Enable Auto Trading'}
+                  {enablingAi ? 'Enabling...' : 'Włącz Auto Trading'}
                 </Button>
               </DialogFooter>
             </>

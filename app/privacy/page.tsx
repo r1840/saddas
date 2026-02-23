@@ -10,14 +10,14 @@ export default function PrivacyPage() {
           <Link href="/">
             <Button variant="ghost" className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Back to Start
+              Powrót do strony głównej
             </Button>
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
+        <h1 className="text-4xl font-bold mb-2">Polityka prywatności</h1>
         <p className="text-muted-foreground mb-8">Last updated: January 24, 2026</p>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
@@ -34,7 +34,7 @@ export default function PrivacyPage() {
               We collect the following types of information:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-muted-foreground">
-              <li><strong>Account Information:</strong> Username, email address, date of birth, and password (encrypted)</li>
+              <li><strong>Account Information:</strong> Nazwa użytkownika, email address, date of birth, and password (encrypted)</li>
               <li><strong>Trading Activity:</strong> Simulated transactions, portfolio holdings, and trading history</li>
               <li><strong>Usage Data:</strong> Pages visited, features used, and interaction patterns</li>
               <li><strong>Technical Data:</strong> IP address, browser type, device information, and session data</li>
@@ -131,7 +131,7 @@ export default function PrivacyPage() {
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-4">12. Changes to Privacy Policy</h2>
+            <h2 className="text-2xl font-semibold mb-4">12. Changes to Polityka prywatności</h2>
             <p className="leading-relaxed text-muted-foreground">
               We may update this privacy policy from time to time. We will notify you of any material changes by posting the new policy on this page and updating the "Last updated" date. Your continued use after changes constitutes acceptance of the updated policy.
             </p>
@@ -140,7 +140,7 @@ export default function PrivacyPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">13. Contact Us</h2>
             <p className="leading-relaxed text-muted-foreground">
-              If you have questions about this Privacy Policy or wish to exercise your privacy rights, please contact us through our support channels. We will respond to your request within 30 days.
+              If you have questions about this Polityka prywatności or wish to exercise your privacy rights, please contact us through our support channels. We will respond to your request within 30 days.
             </p>
           </section>
         </div>

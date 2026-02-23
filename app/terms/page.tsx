@@ -10,21 +10,21 @@ export default function TermsPage() {
           <Link href="/">
             <Button variant="ghost" className="gap-2">
               <ArrowLeft className="w-4 h-4" />
-              Back to Start
+              Powrót do strony głównej
             </Button>
           </Link>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
+        <h1 className="text-4xl font-bold mb-2">Regulamin</h1>
         <p className="text-muted-foreground mb-8">Last updated: January 24, 2026</p>
 
         <div className="prose prose-neutral dark:prose-invert max-w-none space-y-8">
           <section>
             <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
             <p className="leading-relaxed text-muted-foreground">
-              By accessing and using CryptoVest, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these Terms of Service, please do not use our platform.
+              By accessing and using CryptoVest, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these Regulamin, please do not use our platform.
             </p>
           </section>
 
@@ -100,14 +100,14 @@ export default function TermsPage() {
           <section>
             <h2 className="text-2xl font-semibold mb-4">10. Changes to Terms</h2>
             <p className="leading-relaxed text-muted-foreground">
-              We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new Terms of Service on this page. Your continued use of the platform after changes constitutes acceptance of the modified terms.
+              We reserve the right to modify these terms at any time. We will notify users of any material changes by posting the new Regulamin on this page. Your continued use of the platform after changes constitutes acceptance of the modified terms.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold mb-4">11. Contact Information</h2>
             <p className="leading-relaxed text-muted-foreground">
-              If you have any questions about these Terms of Service, please contact us through our support channels.
+              If you have any questions about these Regulamin, please contact us through our support channels.
             </p>
           </section>
         </div>

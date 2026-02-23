@@ -14,8 +14,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setNazwa użytkownika] = useState('');
+  const [password, setHasło] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -76,13 +76,13 @@ export default function LoginPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="username" className="text-sm font-semibold">Username</Label>
+              <Label htmlFor="username" className="text-sm font-semibold">Nazwa użytkownika</Label>
               <Input
                 id="username"
                 type="text"
                 placeholder="Enter your username"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setNazwa użytkownika(e.target.value)}
                 required
                 disabled={loading}
                 className="h-11 border-2"
@@ -90,13 +90,13 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-semibold">Password</Label>
+              <Label htmlFor="password" className="text-sm font-semibold">Hasło</Label>
               <Input
                 id="password"
                 type="password"
                 placeholder="Enter your password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setHasło(e.target.value)}
                 required
                 disabled={loading}
                 className="h-11 border-2"
