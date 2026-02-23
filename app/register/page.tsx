@@ -52,35 +52,35 @@ export default function RegisterPage() {
   };
 
   return (
-    <div classNazwa="min-h-screen flex items-center justify-center bg-background p-4 py-12">
-      <div classNazwa="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
-      <div classNazwa="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(69,92,255,0.08),transparent_50%)]" />
+    <div className="min-h-screen flex items-center justify-center bg-background p-4 py-12">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(69,92,255,0.08),transparent_50%)]" />
       
-      <Card classNazwa="w-full max-w-md relative border-2 shadow-xl">
-        <CardHeader classNazwa="space-y-3 pb-6">
-          <Link href="/" classNazwa="flex items-center justify-center gap-2 mb-2">
-            <div classNazwa="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-              <TrendingUp classNazwa="w-5 h-5 text-primary-foreground" />
+      <Card className="w-full max-w-md relative border-2 shadow-xl">
+        <CardHeader className="space-y-3 pb-6">
+          <Link href="/" className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+              <TrendingUp className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span classNazwa="text-2xl font-bold">CryptoVest</span>
+            <span className="text-2xl font-bold">CryptoVest</span>
           </Link>
-          <CardTitle classNazwa="text-3xl font-bold text-center">
+          <CardTitle className="text-3xl font-bold text-center">
             Get started
           </CardTitle>
-          <CardDescription classNazwa="text-center text-base">
+          <CardDescription className="text-center text-base">
             Create your account to start trading cryptocurrencies
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} classNazwa="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <Alert variant="destructive" classNazwa="border-2">
+              <Alert variant="destructive" className="border-2">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="username" classNazwa="text-sm font-semibold">Username</Label>
+            <div className="space-y-2">
+              <Label htmlFor="username" className="text-sm font-semibold">Username</Label>
               <Input
                 id="username"
                 type="text"
@@ -89,12 +89,12 @@ export default function RegisterPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 disabled={loading}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
             </div>
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="email" classNazwa="text-sm font-semibold">Email</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-sm font-semibold">Email</Label>
               <Input
                 id="email"
                 type="email"
@@ -103,12 +103,12 @@ export default function RegisterPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
             </div>
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="password" classNazwa="text-sm font-semibold">Password</Label>
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-sm font-semibold">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -118,12 +118,12 @@ export default function RegisterPage() {
                 required
                 disabled={loading}
                 minLength={6}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
             </div>
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="dob" classNazwa="text-sm font-semibold">Date of Birth</Label>
+            <div className="space-y-2">
+              <Label htmlFor="dob" className="text-sm font-semibold">Date of Birth</Label>
               <Input
                 id="dob"
                 type="date"
@@ -132,16 +132,16 @@ export default function RegisterPage() {
                 required
                 disabled={loading}
                 max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().split('T')[0]}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
-              <p classNazwa="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 You must be 18 or older to create an account
               </p>
             </div>
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="promoCode" classNazwa="text-sm font-semibold">Promo Code (Optional)</Label>
-              <div classNazwa="relative">
+            <div className="space-y-2">
+              <Label htmlFor="promoCode" className="text-sm font-semibold">Promo Code (Optional)</Label>
+              <div className="relative">
                 <Input
                   id="promoCode"
                   type="text"
@@ -149,21 +149,21 @@ export default function RegisterPage() {
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
                   disabled={loading}
-                  classNazwa="h-11 border-2 pr-20"
+                  className="h-11 border-2 pr-20"
                 />
                 {promoCode === 'BONUS' && (
-                  <div classNazwa="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-success text-xs font-bold">
-                    <CheckCircle2 classNazwa="w-4 h-4" />
+                  <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-success text-xs font-bold">
+                    <CheckCircle2 className="w-4 h-4" />
                     <span>Valid</span>
                   </div>
                 )}
               </div>
-              <p classNazwa="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Get 15% bonus on your first deposit with code BONUS
               </p>
             </div>
 
-            <div classNazwa="flex items-start gap-3 pt-2">
+            <div className="flex items-start gap-3 pt-2">
               <input
                 type="checkbox"
                 id="terms"
@@ -171,28 +171,28 @@ export default function RegisterPage() {
                 onChange={(e) => setAgreedToTerms(e.target.checked)}
                 required
                 disabled={loading}
-                classNazwa="mt-1 w-4 h-4"
+                className="mt-1 w-4 h-4"
               />
-              <Label htmlFor="terms" classNazwa="text-sm leading-relaxed cursor-pointer font-normal">
+              <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer font-normal">
                 {'I agree to the '}
-                <Link href="/terms" classNazwa="text-primary hover:underline font-semibold" target="_blank">
+                <Link href="/terms" className="text-primary hover:underline font-semibold" target="_blank">
                   Terms of Service
                 </Link>
                 {' and '}
-                <Link href="/privacy" classNazwa="text-primary hover:underline font-semibold" target="_blank">
+                <Link href="/privacy" className="text-primary hover:underline font-semibold" target="_blank">
                   Privacy Policy
                 </Link>
               </Label>
             </div>
 
-            <Button type="submit" classNazwa="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading || !agreedToTerms}>
+            <Button type="submit" className="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading || !agreedToTerms}>
               {loading ? 'Creating account...' : 'Create Account'}
             </Button>
           </form>
 
-          <div classNazwa="mt-6 text-center text-sm">
-            <span classNazwa="text-muted-foreground">{'Already have an account? '}</span>
-            <Link href="/login" classNazwa="text-primary hover:underline font-semibold">
+          <div className="mt-6 text-center text-sm">
+            <span className="text-muted-foreground">{'Already have an account? '}</span>
+            <Link href="/login" className="text-primary hover:underline font-semibold">
               Sign in
             </Link>
           </div>

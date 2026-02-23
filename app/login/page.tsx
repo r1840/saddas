@@ -48,35 +48,35 @@ export default function LoginPage() {
   };
 
   return (
-    <div classNazwa="min-h-screen flex items-center justify-center bg-background p-4">
-      <div classNazwa="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
-      <div classNazwa="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(69,92,255,0.08),transparent_50%)]" />
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(69,92,255,0.08),transparent_50%)]" />
       
-      <Card classNazwa="w-full max-w-md relative border-2 shadow-xl">
-        <CardHeader classNazwa="space-y-3 pb-6">
-          <Link href="/" classNazwa="flex items-center justify-center gap-2 mb-2">
-            <div classNazwa="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
-              <TrendingUp classNazwa="w-5 h-5 text-primary-foreground" />
+      <Card className="w-full max-w-md relative border-2 shadow-xl">
+        <CardHeader className="space-y-3 pb-6">
+          <Link href="/" className="flex items-center justify-center gap-2 mb-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/70 rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+              <TrendingUp className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span classNazwa="text-2xl font-bold">CryptoVest</span>
+            <span className="text-2xl font-bold">CryptoVest</span>
           </Link>
-          <CardTitle classNazwa="text-3xl font-bold text-center">
+          <CardTitle className="text-3xl font-bold text-center">
             Witamy ponownie
           </CardTitle>
-          <CardDescription classNazwa="text-center text-base">
+          <CardDescription className="text-center text-base">
             Sign in to your account to continue trading
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} classNazwa="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <Alert variant="destructive" classNazwa="border-2">
+              <Alert variant="destructive" className="border-2">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="username" classNazwa="text-sm font-semibold">Username</Label>
+            <div className="space-y-2">
+              <Label htmlFor="username" className="text-sm font-semibold">Username</Label>
               <Input
                 id="username"
                 type="text"
@@ -85,12 +85,12 @@ export default function LoginPage() {
                 onChange={(e) => setUsername(e.target.value)}
                 required
                 disabled={loading}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
             </div>
 
-            <div classNazwa="space-y-2">
-              <Label htmlFor="password" classNazwa="text-sm font-semibold">Password</Label>
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-sm font-semibold">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -99,18 +99,18 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
-                classNazwa="h-11 border-2"
+                className="h-11 border-2"
               />
             </div>
 
-            <Button type="submit" classNazwa="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base shadow-lg shadow-primary/20" disabled={loading}>
               {loading ? 'Signing in...' : 'Zaloguj się'}
             </Button>
           </form>
 
-          <div classNazwa="mt-6 text-center text-sm">
-            <span classNazwa="text-muted-foreground">{"Don't have an account? "}</span>
-            <Link href="/register" classNazwa="text-primary hover:underline font-semibold">
+          <div className="mt-6 text-center text-sm">
+            <span className="text-muted-foreground">{"Don't have an account? "}</span>
+            <Link href="/register" className="text-primary hover:underline font-semibold">
               Sign up
             </Link>
           </div>

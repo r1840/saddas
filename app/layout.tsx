@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pl">
-      <body classNazwa={`font-sans antialiased`}>
+      <body className={`font-sans antialiased`}>
         {children}
         <Analytics />
       </body>

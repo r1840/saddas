@@ -14,12 +14,12 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { MobileBottomNav } from '@/components/mobile-bottom-nav';
 
-interface Portfel {
+interface Portfolio {
   cash: string;
   holdings: {
     [coinId: string]: {
       amount: string;
-      averageCena: string;
+      averagePrice: string;
     };
   };
 }
@@ -36,7 +36,7 @@ interface CoinData {
 interface Transaction {
   id: string;
   coinId: string;
-  coinNazwa: string;
+  coinName: string;
   type: 'buy' | 'sell';
   amount: string;
   price: string;
@@ -44,10 +44,10 @@ interface Transaction {
   timestamp: string;
 }
 
-export default function PortfelPage() {
+export default function PortfolioPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [portfolio, setPortfel] = useState<Portfel | null>(null);
+  const [portfolio, setPortfolio] = useState<Portfolio | null>(null);
   const [marketData, setMarketData] = useState<CoinData[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
@@ -97,7 +97,7 @@ export default function PortfelPage() {
   };
 
   useEffect(() => {
-    async function loadPortfel() {
+    async function loadPortfolio() {
       try {
         const sessionRes = await fetch('/api/auth/session');
         if (!sessionRes.ok) {
@@ -116,7 +116,7 @@ export default function PortfelPage() {
 
         if (portfolioRes.ok) {
           const data = await portfolioRes.json();
-          setPortfel(data);
+          setPortfolio(data);
         }
 
         if (pumpRes.ok) {
@@ -167,11 +167,11 @@ export default function PortfelPage() {
       }
     }
 
-    loadPortfel();
+    loadPortfolio();
 
     const interval = setInterval(() => {
       if (document.visibilityState === 'visible') {
-        loadPortfel();
+        loadPortfolio();
       }
     }, 15000);
     return () => clearInterval(interval);
@@ -317,7 +317,7 @@ export default function PortfelPage() {
       }
 
       const data = await response.json();
-      setPortfel(data);
+      setPortfolio(data);
       setWypłaćSuccess(true);
 
       setTimeout(() => {
@@ -334,7 +334,7 @@ export default function PortfelPage() {
     }
   };
 
-  const handleWyloguj = async () => {
+  const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' });
     router.push('/');
   };
@@ -360,7 +360,7 @@ export default function PortfelPage() {
     return Object.entries(portfolio.holdings).map(([coinId, holding]) => {
       const coin = marketData.find((c) => c.id === coinId);
       const amount = parseFloat(holding.amount);
-      const averageCena = parseFloat(holding.averageCena);
+      const averagePrice = parseFloat(holding.averagePrice);
       const currentCena = coin?.current_price || 0;
       const currentValue = amount * currentCena;
 
@@ -378,7 +378,7 @@ export default function PortfelPage() {
         profitLoss = gainValue;
         profitLossPercent = initialAmount > 0 ? ((amount - initialAmount) / initialAmount) * 100 : 0;
       } else {
-        const costBasis = amount * averageCena;
+        const costBasis = amount * averagePrice;
         profitLoss = currentValue - costBasis;
         profitLossPercent = costBasis > 0 ? (profitLoss / costBasis) * 100 : 0;
       }
@@ -387,7 +387,7 @@ export default function PortfelPage() {
         coinId,
         coin,
         amount,
-        averageCena,
+        averagePrice,
         currentValue,
         value: currentValue,
         profitLoss,
@@ -398,19 +398,19 @@ export default function PortfelPage() {
 
   if (loading) {
     return (
-      <div classNazwa="min-h-screen bg-background">
-        <header classNazwa="border-b border-border bg-card">
-          <div classNazwa="max-w-7xl mx-auto px-4 py-4">
-            <Skeleton classNazwa="h-8 w-32" />
+      <div className="min-h-screen bg-background">
+        <header className="border-b border-border bg-card">
+          <div className="max-w-7xl mx-auto px-4 py-4">
+            <Skeleton className="h-8 w-32" />
           </div>
         </header>
-        <div classNazwa="max-w-7xl mx-auto px-4 py-8 space-y-6">
-          <Skeleton classNazwa="h-12 w-64" />
-          <div classNazwa="grid md:grid-cols-2 gap-6">
-            <Skeleton classNazwa="h-32" />
-            <Skeleton classNazwa="h-32" />
+        <div className="max-w-7xl mx-auto px-4 py-8 space-y-6">
+          <Skeleton className="h-12 w-64" />
+          <div className="grid md:grid-cols-2 gap-6">
+            <Skeleton className="h-32" />
+            <Skeleton className="h-32" />
           </div>
-          <Skeleton classNazwa="h-96" />
+          <Skeleton className="h-96" />
         </div>
       </div>
     );
@@ -426,57 +426,57 @@ export default function PortfelPage() {
     ((parseFloat(portfolio.cash) + holdingsValue - parseFloat(userActivePump.initial_value)) / parseFloat(userActivePump.initial_value)) * 100 : 0;
 
   return (
-    <div classNazwa="min-h-screen bg-background">
-      <header classNazwa="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-        <div classNazwa="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div classNazwa="flex items-center gap-6">
-            <Link href="/dashboard" classNazwa="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div classNazwa="w-8 h-8 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center shadow-md shadow-primary/20">
-                <TrendingUp classNazwa="w-4 h-4 text-primary-foreground" />
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center shadow-md shadow-primary/20">
+                <TrendingUp className="w-4 h-4 text-primary-foreground" />
               </div>
-              <span classNazwa="text-xl font-bold">CryptoVest</span>
+              <span className="text-xl font-bold">CryptoVest</span>
             </Link>
-            <nav classNazwa="hidden md:flex gap-1">
+            <nav className="hidden md:flex gap-1">
               <Link href="/dashboard">
-                <Button variant="ghost" classNazwa="font-medium">Dashboard</Button>
+                <Button variant="ghost" className="font-medium">Dashboard</Button>
               </Link>
               <Link href="/trade">
-                <Button variant="ghost" classNazwa="font-medium">Handel</Button>
+                <Button variant="ghost" className="font-medium">Handel</Button>
               </Link>
               <Link href="/portfolio">
-                <Button variant="ghost" classNazwa="font-medium">Portfel</Button>
+                <Button variant="ghost" className="font-medium">Portfolio</Button>
               </Link>
             </nav>
           </div>
-          <div classNazwa="hidden md:flex items-center gap-3">
-            <Button variant="outline" onClick={handleWyloguj}>
+          <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" onClick={handleLogout}>
               Wyloguj
             </Button>
           </div>
           <Button
             variant="ghost"
             size="icon"
-            classNazwa="md:hidden"
+            className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X classNazwa="w-5 h-5" /> : <Menu classNazwa="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </Button>
         </div>
         
         {mobileMenuOpen && (
-          <div classNazwa="md:hidden border-t border-border bg-background">
-            <nav classNazwa="flex flex-col p-3 gap-1">
+          <div className="md:hidden border-t border-border bg-background">
+            <nav className="flex flex-col p-3 gap-1">
               <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" classNazwa="w-full justify-start h-10">Dashboard</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Dashboard</Button>
               </Link>
               <Link href="/trade" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" classNazwa="w-full justify-start h-10">Handel</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Handel</Button>
               </Link>
               <Link href="/portfolio" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" classNazwa="w-full justify-start h-10">Portfel</Button>
+                <Button variant="ghost" className="w-full justify-start h-10">Portfolio</Button>
               </Link>
-              <div classNazwa="pt-2 mt-1 border-t border-border">
-                <Button variant="outline" onClick={handleWyloguj} classNazwa="w-full bg-transparent h-10">
+              <div className="pt-2 mt-1 border-t border-border">
+                <Button variant="outline" onClick={handleLogout} className="w-full bg-transparent h-10">
                   Wyloguj
                 </Button>
               </div>
@@ -485,47 +485,47 @@ export default function PortfelPage() {
         )}
       </header>
 
-      <main classNazwa="max-w-7xl mx-auto px-4 py-6 pb-24 md:pb-8 space-y-6">
-        <div classNazwa="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <main className="max-w-7xl mx-auto px-4 py-6 pb-24 md:pb-8 space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h2 classNazwa="text-2xl sm:text-3xl font-bold">Your Portfel</h2>
-            <p classNazwa="text-sm text-muted-foreground mt-1">
+            <h2 className="text-2xl sm:text-3xl font-bold">Your Portfolio</h2>
+            <p className="text-sm text-muted-foreground mt-1">
               Track your holdings and transactions
             </p>
           </div>
-          <div classNazwa="flex gap-3">
+          <div className="flex gap-3">
             <Link href="/trade">
-              <Button variant="outline" classNazwa="gap-2 flex-1 sm:flex-none bg-transparent">
-                <TrendingUp classNazwa="w-4 h-4" />
+              <Button variant="outline" className="gap-2 flex-1 sm:flex-none bg-transparent">
+                <TrendingUp className="w-4 h-4" />
                 Handel
               </Button>
             </Link>
-            <Button onClick={openWpłaćDialog} classNazwa="gap-2 flex-1 sm:flex-none">
-              <ArrowDownToLine classNazwa="w-4 h-4" />
+            <Button onClick={openWpłaćDialog} className="gap-2 flex-1 sm:flex-none">
+              <ArrowDownToLine className="w-4 h-4" />
               Wpłać
             </Button>
-            <Button onClick={openWypłaćDialog} variant="outline" classNazwa="gap-2 flex-1 sm:flex-none bg-transparent">
-              <ArrowUpFromLine classNazwa="w-4 h-4" />
+            <Button onClick={openWypłaćDialog} variant="outline" className="gap-2 flex-1 sm:flex-none bg-transparent">
+              <ArrowUpFromLine className="w-4 h-4" />
               Wypłać
             </Button>
           </div>
         </div>
 
         {totalValue > 1 && !aiTradingEnabled && (
-          <Card classNazwa="border-2 border-primary/50 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
-            <CardContent classNazwa="py-4">
-              <div classNazwa="flex items-center justify-between">
-                <div classNazwa="flex items-center gap-3">
-                  <div classNazwa="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
-                    <Bot classNazwa="w-6 h-6 text-primary" />
+          <Card className="border-2 border-primary/50 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center">
+                    <Bot className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 classNazwa="font-bold text-lg">Auto Trading Available</h3>
-                    <p classNazwa="text-sm text-muted-foreground">Let Auto optimize your trades automatically</p>
+                    <h3 className="font-bold text-lg">Auto Trading Available</h3>
+                    <p className="text-sm text-muted-foreground">Let Auto optimize your trades automatically</p>
                   </div>
                 </div>
-                <Button onClick={() => setAiDialogOpen(true)} classNazwa="gap-2">
-                  <Sparkles classNazwa="w-4 h-4" />
+                <Button onClick={() => setAiDialogOpen(true)} className="gap-2">
+                  <Sparkles className="w-4 h-4" />
                   Enable Auto Trading
                 </Button>
               </div>
@@ -534,22 +534,22 @@ export default function PortfelPage() {
         )}
 
         {aiTradingEnabled && (
-          <Card classNazwa="border-2 border-success/50 bg-gradient-to-r from-success/10 via-success/5 to-transparent">
-            <CardContent classNazwa="py-4">
-              <div classNazwa="flex items-center justify-between">
-                <div classNazwa="flex items-center gap-3">
-                  <div classNazwa="hidden md:flex w-12 h-12 bg-success/20 rounded-xl items-center justify-center">
-                    <Bot classNazwa="w-6 h-6 text-success" />
+          <Card className="border-2 border-success/50 bg-gradient-to-r from-success/10 via-success/5 to-transparent">
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="hidden md:flex w-12 h-12 bg-success/20 rounded-xl items-center justify-center">
+                    <Bot className="w-6 h-6 text-success" />
                   </div>
                   <div>
-                    <h3 classNazwa="font-bold text-base md:text-lg text-success">Auto Trading Active</h3>
-                    <p classNazwa="text-xs md:text-sm text-muted-foreground">Auto is optimizing your portfolio</p>
+                    <h3 className="font-bold text-base md:text-lg text-success">Auto Trading Active</h3>
+                    <p className="text-xs md:text-sm text-muted-foreground">Auto is optimizing your portfolio</p>
                   </div>
                 </div>
                 <Button 
                   variant="outline" 
                   onClick={() => setAiDialogOpen(true)} 
-                  classNazwa="bg-transparent"
+                  className="bg-transparent"
                   size="sm"
                 >
                   Manage
@@ -559,83 +559,83 @@ export default function PortfelPage() {
           </Card>
         )}
 
-        <div classNazwa="grid md:grid-cols-2 gap-6">
-          <Card classNazwa={`border-2 transition-all duration-500 ${isGaining ? 'border-success/50 shadow-lg shadow-success/10' : ''} hover:shadow-lg`}>
-            <CardHeader classNazwa="flex flex-row items-center justify-between pb-2">
-              <CardTitle classNazwa="text-sm font-medium text-muted-foreground">Łączne saldo</CardTitle>
-              <div classNazwa={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isGaining ? 'bg-success/20' : 'bg-primary/10'}`}>
-                <Wallet classNazwa={`w-5 h-5 ${isGaining ? 'text-success' : 'text-primary'}`} />
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card className={`border-2 transition-all duration-500 ${isGaining ? 'border-success/50 shadow-lg shadow-success/10' : ''} hover:shadow-lg`}>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">Łączne saldo</CardTitle>
+              <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isGaining ? 'bg-success/20' : 'bg-primary/10'}`}>
+                <Wallet className={`w-5 h-5 ${isGaining ? 'text-success' : 'text-primary'}`} />
               </div>
             </CardHeader>
             <CardContent>
-              <div classNazwa={`text-4xl font-bold mb-2 transition-all duration-300 ${isGaining ? 'text-success' : ''}`}>
+              <div className={`text-4xl font-bold mb-2 transition-all duration-300 ${isGaining ? 'text-success' : ''}`}>
                 ${totalValue.toLocaleString('pl-PL', {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
               </div>
               {isGaining && totalGainPercent > 0 && (
-                <div classNazwa="flex items-center gap-2 mb-3 px-3 py-1.5 bg-success/10 rounded-md w-fit">
-                  <TrendingUp classNazwa="w-4 h-4 text-success" />
-                  <span classNazwa="text-sm font-semibold text-success">+{totalGainPercent.toFixed(2)}%</span>
+                <div className="flex items-center gap-2 mb-3 px-3 py-1.5 bg-success/10 rounded-md w-fit">
+                  <TrendingUp className="w-4 h-4 text-success" />
+                  <span className="text-sm font-semibold text-success">+{totalGainPercent.toFixed(2)}%</span>
                 </div>
               )}
-              <div classNazwa="flex items-center gap-4 text-sm">
-                <span classNazwa="text-muted-foreground">
-                  Cash: <span classNazwa="font-semibold text-foreground">zł {cashBalance.toFixed(2)}</span>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-muted-foreground">
+                  Cash: <span className="font-semibold text-foreground">zł {cashBalance.toFixed(2)}</span>
                 </span>
-                <span classNazwa="text-muted-foreground">|</span>
-                <span classNazwa="text-muted-foreground">
-                  Holdings: <span classNazwa={`font-semibold ${isGaining ? 'text-success' : 'text-foreground'}`}>zł {holdingsValue.toFixed(2)}</span>
+                <span className="text-muted-foreground">|</span>
+                <span className="text-muted-foreground">
+                  Holdings: <span className={`font-semibold ${isGaining ? 'text-success' : 'text-foreground'}`}>zł {holdingsValue.toFixed(2)}</span>
                 </span>
               </div>
             </CardContent>
           </Card>
 
-          <Card classNazwa="border-2 bg-gradient-to-br from-card to-card hover:shadow-lg transition-shadow">
-            <CardHeader classNazwa="flex flex-row items-center justify-between pb-2">
-              <CardTitle classNazwa="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
-              <div classNazwa="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center">
-                <Activity classNazwa="w-5 h-5 text-success" />
+          <Card className="border-2 bg-gradient-to-br from-card to-card hover:shadow-lg transition-shadow">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">Total Transactions</CardTitle>
+              <div className="w-10 h-10 bg-success/10 rounded-xl flex items-center justify-center">
+                <Activity className="w-5 h-5 text-success" />
               </div>
             </CardHeader>
             <CardContent>
-              <div classNazwa="text-4xl font-bold mb-2">{transactions.length}</div>
-              <div classNazwa="flex items-center gap-4 text-sm">
-                <span classNazwa="text-muted-foreground">
-                  Buy: <span classNazwa="font-semibold text-success">{transactions.filter((t) => t.type === 'buy').length}</span>
+              <div className="text-4xl font-bold mb-2">{transactions.length}</div>
+              <div className="flex items-center gap-4 text-sm">
+                <span className="text-muted-foreground">
+                  Buy: <span className="font-semibold text-success">{transactions.filter((t) => t.type === 'buy').length}</span>
                 </span>
-                <span classNazwa="text-muted-foreground">|</span>
-                <span classNazwa="text-muted-foreground">
-                  Sell: <span classNazwa="font-semibold text-destructive">{transactions.filter((t) => t.type === 'sell').length}</span>
+                <span className="text-muted-foreground">|</span>
+                <span className="text-muted-foreground">
+                  Sell: <span className="font-semibold text-destructive">{transactions.filter((t) => t.type === 'sell').length}</span>
                 </span>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="holdings" classNazwa="space-y-6">
-          <TabsList classNazwa="grid w-full max-w-md grid-cols-2 h-12">
-            <TabsTrigger value="holdings" classNazwa="font-semibold">Holdings</TabsTrigger>
-            <TabsTrigger value="transactions" classNazwa="font-semibold">History</TabsTrigger>
+        <Tabs defaultValue="holdings" className="space-y-6">
+          <TabsList className="grid w-full max-w-md grid-cols-2 h-12">
+            <TabsTrigger value="holdings" className="font-semibold">Holdings</TabsTrigger>
+            <TabsTrigger value="transactions" className="font-semibold">History</TabsTrigger>
           </TabsList>
 
           <TabsContent value="holdings">
-            <Card classNazwa="border-2">
+            <Card className="border-2">
               <CardHeader>
-                <CardTitle classNazwa="text-2xl">Your Holdings</CardTitle>
+                <CardTitle className="text-2xl">Your Holdings</CardTitle>
               </CardHeader>
               <CardContent>
                 {holdings.length === 0 ? (
-                  <div classNazwa="py-16 text-center space-y-6">
-                    <div classNazwa="w-20 h-20 bg-muted rounded-3xl flex items-center justify-center mx-auto">
-                      <Wallet classNazwa="w-10 h-10 text-muted-foreground" />
+                  <div className="py-16 text-center space-y-6">
+                    <div className="w-20 h-20 bg-muted rounded-3xl flex items-center justify-center mx-auto">
+                      <Wallet className="w-10 h-10 text-muted-foreground" />
                     </div>
                     <div>
-                      <p classNazwa="text-lg font-semibold mb-2">
+                      <p className="text-lg font-semibold mb-2">
                         No holdings yet
                       </p>
-                      <p classNazwa="text-muted-foreground mb-6">
+                      <p className="text-muted-foreground mb-6">
                         Start trading to build your crypto portfolio
                       </p>
                       <Link href="/markets">
@@ -645,29 +645,29 @@ export default function PortfelPage() {
                   </div>
                 ) : (
                   <>
-                    <div classNazwa="md:hidden space-y-3">
+                    <div className="md:hidden space-y-3">
                       {holdings.map((holding) => {
                         const isPumping = activePumps.some(p => p.coinId === holding.coinId && p.isActive);
                         return (
-                          <Card key={holding.coinId} classNazwa={`border ${isPumping ? 'border-success/40 bg-success/5' : ''}`}>
-                            <CardContent classNazwa="py-4">
-                              <div classNazwa="flex items-center justify-between gap-3">
-                                <div classNazwa="flex items-center gap-3 min-w-0">
-                                  {holding.coin && <img src={holding.coin.image || '/placeholder.svg'} alt={holding.coin.name} classNazwa="w-9 h-9 rounded-full" />}
-                                  <div classNazwa="min-w-0">
-                                    <p classNazwa="font-semibold truncate">{holding.coin?.name}</p>
-                                    <p classNazwa="text-xs text-muted-foreground uppercase">{holding.coin?.symbol}</p>
+                          <Card key={holding.coinId} className={`border ${isPumping ? 'border-success/40 bg-success/5' : ''}`}>
+                            <CardContent className="py-4">
+                              <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3 min-w-0">
+                                  {holding.coin && <img src={holding.coin.image || '/placeholder.svg'} alt={holding.coin.name} className="w-9 h-9 rounded-full" />}
+                                  <div className="min-w-0">
+                                    <p className="font-semibold truncate">{holding.coin?.name}</p>
+                                    <p className="text-xs text-muted-foreground uppercase">{holding.coin?.symbol}</p>
                                   </div>
                                 </div>
-                                <div classNazwa="text-right">
-                                  <p classNazwa="font-semibold">zł {holding.currentValue.toFixed(2)}</p>
-                                  <p classNazwa={`text-xs font-semibold ${holding.profitLoss >= 0 ? 'text-success' : 'text-destructive'}`}>
+                                <div className="text-right">
+                                  <p className="font-semibold">zł {holding.currentValue.toFixed(2)}</p>
+                                  <p className={`text-xs font-semibold ${holding.profitLoss >= 0 ? 'text-success' : 'text-destructive'}`}>
                                     {holding.profitLoss >= 0 ? '+' : ''}{holding.profitLossPercent.toFixed(2)}%
                                   </p>
                                 </div>
                               </div>
-                              <div classNazwa="mt-3 flex items-center justify-between">
-                                <p classNazwa="text-sm text-muted-foreground">{holding.amount.toFixed(4)} {holding.coin?.symbol?.toUpperCase()}</p>
+                              <div className="mt-3 flex items-center justify-between">
+                                <p className="text-sm text-muted-foreground">{holding.amount.toFixed(4)} {holding.coin?.symbol?.toUpperCase()}</p>
                                 <Link href={`/trade?coin=${holding.coinId}`}>
                                   <Button size="sm">Handel</Button>
                                 </Link>
@@ -678,26 +678,26 @@ export default function PortfelPage() {
                       })}
                     </div>
 
-                  <div classNazwa="hidden md:block overflow-x-auto">
-                    <table classNazwa="w-full">
+                  <div className="hidden md:block overflow-x-auto">
+                    <table className="w-full">
                       <thead>
-                        <tr classNazwa="border-b border-border">
-                          <th classNazwa="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                        <tr className="border-b border-border">
+                          <th className="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Asset
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Balance
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden sm:table-cell">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden sm:table-cell">
                             Avg Cena
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Value
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden md:table-cell">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden md:table-cell">
                             Profit/Loss
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Action
                           </th>
                         </tr>
@@ -709,20 +709,20 @@ export default function PortfelPage() {
                           return (
                           <tr
                             key={holding.coinId}
-                            classNazwa={`border-b border-border transition-all duration-300 ${isPumping ? 'bg-success/5 hover:bg-success/10' : 'hover:bg-muted/50'}`}
+                            className={`border-b border-border transition-all duration-300 ${isPumping ? 'bg-success/5 hover:bg-success/10' : 'hover:bg-muted/50'}`}
                           >
-                              <td classNazwa="py-5 px-3">
-                                <Link href={`/trade?coin=${holding.coinId}`} classNazwa="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                              <td className="py-5 px-3">
+                                <Link href={`/trade?coin=${holding.coinId}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
                                   {holding.coin && (
                                     <>
                                       <img
                                         src={holding.coin.image || "/placeholder.svg"}
                                         alt={holding.coin.name}
-                                        classNazwa="w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0"
+                                        className="w-8 h-8 md:w-10 md:h-10 rounded-full flex-shrink-0"
                                       />
-                                      <div classNazwa="min-w-0">
-                                        <p classNazwa="font-semibold text-sm md:text-base truncate">{holding.coin.name}</p>
-                                        <p classNazwa="text-xs md:text-sm text-muted-foreground uppercase font-medium">
+                                      <div className="min-w-0">
+                                        <p className="font-semibold text-sm md:text-base truncate">{holding.coin.name}</p>
+                                        <p className="text-xs md:text-sm text-muted-foreground uppercase font-medium">
                                           {holding.coin.symbol}
                                         </p>
                                       </div>
@@ -730,42 +730,42 @@ export default function PortfelPage() {
                                   )}
                                 </Link>
                               </td>
-                            <td classNazwa="py-5 px-3 text-right whitespace-nowrap">
-                              <div classNazwa={`font-semibold text-sm md:text-base ${isPumping ? 'text-success' : ''}`}>{holding.amount.toFixed(4)}</div>
-                              <div classNazwa="text-xs text-muted-foreground">{holding.coin?.symbol.toUpperCase()}</div>
+                            <td className="py-5 px-3 text-right whitespace-nowrap">
+                              <div className={`font-semibold text-sm md:text-base ${isPumping ? 'text-success' : ''}`}>{holding.amount.toFixed(4)}</div>
+                              <div className="text-xs text-muted-foreground">{holding.coin?.symbol.toUpperCase()}</div>
                               </td>
-                              <td classNazwa="py-5 px-3 text-right font-medium hidden sm:table-cell">
-                                ${holding.averageCena.toFixed(2)}
+                              <td className="py-5 px-3 text-right font-medium hidden sm:table-cell">
+                                ${holding.averagePrice.toFixed(2)}
                               </td>
-                              <td classNazwa="py-5 px-3 text-right font-semibold">
+                              <td className="py-5 px-3 text-right font-semibold">
                                 ${holding.currentValue.toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </td>
-                            <td classNazwa="py-5 px-3 text-right hidden md:table-cell">
+                            <td className="py-5 px-3 text-right hidden md:table-cell">
                               <div
-                                classNazwa={`inline-flex flex-col items-end gap-0.5 px-3 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                                className={`inline-flex flex-col items-end gap-0.5 px-3 py-2 rounded-lg font-semibold transition-all duration-300 ${
                                   isPumping || holding.profitLoss >= 0 ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'
                                 }`}
                               >
-                                <div classNazwa="flex items-center gap-1">
+                                <div className="flex items-center gap-1">
                                   {isPumping || holding.profitLoss >= 0 ? (
-                                    <TrendingUp classNazwa={`w-3.5 h-3.5 ${isPumping ? 'animate-bounce' : ''}`} />
+                                    <TrendingUp className={`w-3.5 h-3.5 ${isPumping ? 'animate-bounce' : ''}`} />
                                   ) : (
-                                    <TrendingDown classNazwa="w-3.5 h-3.5" />
+                                    <TrendingDown className="w-3.5 h-3.5" />
                                   )}
                                   <span>{holding.profitLoss >= 0 ? '+' : ''}${Math.abs(holding.profitLoss).toFixed(2)}</span>
                                 </div>
-                                <div classNazwa="text-xs">
+                                <div className="text-xs">
                                   {isPumping && pumpGainPercent !== null ? (
-                                    <span classNazwa="font-bold">+{pumpGainPercent.toFixed(2)}%</span>
+                                    <span className="font-bold">+{pumpGainPercent.toFixed(2)}%</span>
                                   ) : (
                                     <span>{holding.profitLoss >= 0 ? '+' : ''}{holding.profitLossPercent.toFixed(2)}%</span>
                                   )}
                                 </div>
                               </div>
                             </td>
-                            <td classNazwa="py-5 px-3 text-right">
+                            <td className="py-5 px-3 text-right">
                               <Link href={`/trade?coin=${holding.coinId}`}>
-                                <Button size="sm" classNazwa={isPumping ? 'bg-success hover:bg-success/90 shadow-sm' : 'shadow-sm'}>Handel</Button>
+                                <Button size="sm" className={isPumping ? 'bg-success hover:bg-success/90 shadow-sm' : 'shadow-sm'}>Handel</Button>
                               </Link>
                             </td>
                           </tr>
@@ -781,19 +781,19 @@ export default function PortfelPage() {
           </TabsContent>
 
           <TabsContent value="transactions">
-            <Card classNazwa="border-2">
+            <Card className="border-2">
               <CardHeader>
-                <CardTitle classNazwa="text-2xl">Transaction History</CardTitle>
+                <CardTitle className="text-2xl">Transaction History</CardTitle>
               </CardHeader>
               <CardContent>
                 {transactions.length === 0 ? (
-                  <div classNazwa="py-16 text-center space-y-6">
-                    <div classNazwa="w-20 h-20 bg-muted rounded-3xl flex items-center justify-center mx-auto">
-                      <Activity classNazwa="w-10 h-10 text-muted-foreground" />
+                  <div className="py-16 text-center space-y-6">
+                    <div className="w-20 h-20 bg-muted rounded-3xl flex items-center justify-center mx-auto">
+                      <Activity className="w-10 h-10 text-muted-foreground" />
                     </div>
                     <div>
-                      <p classNazwa="text-lg font-semibold mb-2">No transactions yet</p>
-                      <p classNazwa="text-muted-foreground mb-6">
+                      <p className="text-lg font-semibold mb-2">No transactions yet</p>
+                      <p className="text-muted-foreground mb-6">
                         Start trading to see your transaction history
                       </p>
                       <Link href="/markets">
@@ -803,72 +803,72 @@ export default function PortfelPage() {
                   </div>
                 ) : (
                   <>
-                    <div classNazwa="md:hidden space-y-3">
+                    <div className="md:hidden space-y-3">
                       {transactions.map((tx) => (
-                        <Card key={tx.id} classNazwa="border">
-                          <CardContent classNazwa="py-4">
-                            <div classNazwa="flex items-start justify-between gap-3">
+                        <Card key={tx.id} className="border">
+                          <CardContent className="py-4">
+                            <div className="flex items-start justify-between gap-3">
                               <div>
-                                <p classNazwa="font-semibold">{tx.coinNazwa}</p>
-                                <p classNazwa="text-xs text-muted-foreground">{new Date(tx.timestamp).toLocaleString('pl-PL', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+                                <p className="font-semibold">{tx.coinName}</p>
+                                <p className="text-xs text-muted-foreground">{new Date(tx.timestamp).toLocaleString('pl-PL', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
                               </div>
-                              <span classNazwa={`px-2 py-1 rounded text-xs font-bold uppercase ${tx.type === 'buy' ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
+                              <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${tx.type === 'buy' ? 'bg-success/10 text-success' : 'bg-destructive/10 text-destructive'}`}>
                                 {tx.type}
                               </span>
                             </div>
-                            <div classNazwa="mt-3 flex items-center justify-between text-sm">
-                              <span classNazwa="text-muted-foreground">{parseFloat(tx.amount).toFixed(4)}</span>
-                              <span classNazwa="font-semibold">zł {parseFloat(tx.total).toFixed(2)}</span>
+                            <div className="mt-3 flex items-center justify-between text-sm">
+                              <span className="text-muted-foreground">{parseFloat(tx.amount).toFixed(4)}</span>
+                              <span className="font-semibold">zł {parseFloat(tx.total).toFixed(2)}</span>
                             </div>
                           </CardContent>
                         </Card>
                       ))}
                     </div>
 
-                  <div classNazwa="hidden md:block overflow-x-auto">
-                    <table classNazwa="w-full">
+                  <div className="hidden md:block overflow-x-auto">
+                    <table className="w-full">
                       <thead>
-                        <tr classNazwa="border-b border-border">
-                          <th classNazwa="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                        <tr className="border-b border-border">
+                          <th className="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Date
                           </th>
-                          <th classNazwa="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-left py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Asset
                           </th>
-                          <th classNazwa="text-center py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-center py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Type
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Amount
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden sm:table-cell">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground hidden sm:table-cell">
                             Cena
                           </th>
-                          <th classNazwa="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
+                          <th className="text-right py-4 px-3 font-semibold text-xs uppercase text-muted-foreground">
                             Total
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {transactions.map((tx) => (
-                          <tr key={tx.id} classNazwa="border-b border-border hover:bg-muted/50 transition-colors">
-                            <td classNazwa="py-5 px-3 text-sm font-medium">
+                          <tr key={tx.id} className="border-b border-border hover:bg-muted/50 transition-colors">
+                            <td className="py-5 px-3 text-sm font-medium">
                               {new Date(tx.timestamp).toLocaleDateString('pl-PL', { 
                                 month: 'short', 
                                 day: 'numeric',
                                 year: 'numeric'
                               })}
-                              <div classNazwa="text-xs text-muted-foreground">
+                              <div className="text-xs text-muted-foreground">
                                 {new Date(tx.timestamp).toLocaleTimeString('pl-PL', { 
                                   hour: '2-digit',
                                   minute: '2-digit'
                                 })}
                               </div>
                             </td>
-                            <td classNazwa="py-5 px-3 font-semibold">{tx.coinNazwa}</td>
-                            <td classNazwa="py-5 px-3 text-center">
+                            <td className="py-5 px-3 font-semibold">{tx.coinName}</td>
+                            <td className="py-5 px-3 text-center">
                               <span
-                                classNazwa={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase ${
+                                className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase ${
                                   tx.type === 'buy'
                                     ? 'bg-success/10 text-success'
                                     : 'bg-destructive/10 text-destructive'
@@ -877,13 +877,13 @@ export default function PortfelPage() {
                                 {tx.type}
                               </span>
                             </td>
-                            <td classNazwa="py-5 px-3 text-right font-semibold">
+                            <td className="py-5 px-3 text-right font-semibold">
                               {parseFloat(tx.amount).toFixed(4)}
                             </td>
-                            <td classNazwa="py-5 px-3 text-right font-medium hidden sm:table-cell">
+                            <td className="py-5 px-3 text-right font-medium hidden sm:table-cell">
                               ${parseFloat(tx.price).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </td>
-                            <td classNazwa="py-5 px-3 text-right font-semibold">
+                            <td className="py-5 px-3 text-right font-semibold">
                               ${parseFloat(tx.total).toLocaleString('pl-PL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </td>
                           </tr>
@@ -901,18 +901,18 @@ export default function PortfelPage() {
 
       
       <Dialog open={depositDialogOpen} onOpenChange={setWpłaćDialogOpen}>
-        <DialogContent classNazwa="max-w-md">
+        <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle classNazwa="flex items-center gap-2">
-              <ArrowDownToLine classNazwa="w-5 h-5 text-success" />
+            <DialogTitle className="flex items-center gap-2">
+              <ArrowDownToLine className="w-5 h-5 text-success" />
               Wpłać Crypto
             </DialogTitle>
             <DialogDescription>
               Select a cryptocurrency to generate a deposit address with QR code.
             </DialogDescription>
           </DialogHeader>
-          <div classNazwa="space-y-4 py-4">
-            <div classNazwa="space-y-2">
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
               <Label htmlFor="crypto">Select Cryptocurrency</Label>
               <Select value={selectedCrypto} onValueChange={setSelectedCrypto}>
                 <SelectTrigger id="crypto">
@@ -929,29 +929,29 @@ export default function PortfelPage() {
             </div>
             
             {selectedCrypto && (
-              <div classNazwa="space-y-4">
-                <div classNazwa="flex justify-center p-4 bg-white rounded-lg">
+              <div className="space-y-4">
+                <div className="flex justify-center p-4 bg-white rounded-lg">
                   <img
                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${cryptoAddresses[selectedCrypto].address}`}
                     alt="QR Code"
-                    classNazwa="w-48 h-48"
+                    className="w-48 h-48"
                   />
                 </div>
                 
-                <div classNazwa="space-y-2">
+                <div className="space-y-2">
                   <Label>Wpłać Address</Label>
-                  <div classNazwa="flex gap-2">
+                  <div className="flex gap-2">
                     <Input
                       value={cryptoAddresses[selectedCrypto].address}
                       readOnly
-                      classNazwa="font-mono text-xs"
+                      className="font-mono text-xs"
                     />
                     <Button
                       size="icon"
                       variant="outline"
                       onClick={() => copyToClipboard(cryptoAddresses[selectedCrypto].address)}
                     >
-                      {copied ? <CheckCircle2 classNazwa="w-4 h-4 text-success" /> : <Copy classNazwa="w-4 h-4" />}
+                      {copied ? <CheckCircle2 className="w-4 h-4 text-success" /> : <Copy className="w-4 h-4" />}
                     </Button>
                   </div>
                 </div>
@@ -970,8 +970,8 @@ export default function PortfelPage() {
       <Dialog open={withdrawDialogOpen} onOpenChange={setWypłaćDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle classNazwa="flex items-center gap-2">
-              <ArrowUpFromLine classNazwa="w-5 h-5 text-destructive" />
+            <DialogTitle className="flex items-center gap-2">
+              <ArrowUpFromLine className="w-5 h-5 text-destructive" />
               Wypłać Cryptocurrency
             </DialogTitle>
             <DialogDescription>
@@ -980,23 +980,23 @@ export default function PortfelPage() {
           </DialogHeader>
           
           {withdrawSuccess ? (
-            <div classNazwa="py-8 text-center space-y-4">
-              <div classNazwa="flex justify-center">
-                <div classNazwa="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center">
-                  <CheckCircle2 classNazwa="w-10 h-10 text-success" />
+            <div className="py-8 text-center space-y-4">
+              <div className="flex justify-center">
+                <div className="w-16 h-16 bg-success/20 rounded-full flex items-center justify-center">
+                  <CheckCircle2 className="w-10 h-10 text-success" />
                 </div>
               </div>
               <div>
-                <h3 classNazwa="text-xl font-bold text-success mb-2">Wypłać Successful!</h3>
-                <p classNazwa="text-sm text-muted-foreground">
+                <h3 className="text-xl font-bold text-success mb-2">Wypłać Successful!</h3>
+                <p className="text-sm text-muted-foreground">
                   {withdrawAmount} {withdrawCrypto.toUpperCase()} has been deducted from your portfolio.
                 </p>
               </div>
             </div>
           ) : (
             <>
-              <div classNazwa="space-y-4 py-4">
-                <div classNazwa="space-y-2">
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
                   <Label htmlFor="withdrawCrypto">Select Cryptocurrency</Label>
                   <Select value={withdrawCrypto} onValueChange={setWypłaćCrypto} disabled={withdrawing}>
                     <SelectTrigger id="withdrawCrypto">
@@ -1018,7 +1018,7 @@ export default function PortfelPage() {
                   </Select>
                 </div>
 
-                <div classNazwa="space-y-2">
+                <div className="space-y-2">
                   <Label htmlFor="withdrawAmount">Amount</Label>
                   <Input
                     id="withdrawAmount"
@@ -1031,13 +1031,13 @@ export default function PortfelPage() {
                     disabled={withdrawing || !withdrawCrypto}
                   />
                   {withdrawCrypto && portfolio && (
-                    <p classNazwa="text-xs text-muted-foreground">
+                    <p className="text-xs text-muted-foreground">
                       Available: {portfolio.holdings[withdrawCrypto]?.amount || '0'} {withdrawCrypto.toUpperCase()}
                     </p>
                   )}
                 </div>
 
-                <div classNazwa="space-y-2">
+                <div className="space-y-2">
                   <Label htmlFor="withdrawAddress">Destination Wallet Address</Label>
                   <Input
                     id="withdrawAddress"
@@ -1049,14 +1049,14 @@ export default function PortfelPage() {
                       setAddressError('');
                     }}
                     disabled={withdrawing || !withdrawCrypto}
-                    classNazwa={`font-mono text-xs ${addressError ? 'border-destructive' : ''}`}
+                    className={`font-mono text-xs ${addressError ? 'border-destructive' : ''}`}
                   />
                   {addressError && (
-                    <p classNazwa="text-xs text-destructive">{addressError}</p>
+                    <p className="text-xs text-destructive">{addressError}</p>
                   )}
                   {withdrawAddress && withdrawCrypto && !addressError && validateWalletAddress(withdrawCrypto, withdrawAddress) && (
-                    <p classNazwa="text-xs text-success flex items-center gap-1">
-                      <CheckCircle2 classNazwa="w-3 h-3" />
+                    <p className="text-xs text-success flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
                       Valid address format
                     </p>
                   )}
@@ -1086,43 +1086,43 @@ export default function PortfelPage() {
       <Dialog open={aiDialogOpen} onOpenChange={setAiDialogOpen}>
         <DialogContent>
           {aiSuccess ? (
-            <div classNazwa="py-8 text-center space-y-4">
-              <div classNazwa="flex justify-center">
-                <div classNazwa="w-20 h-20 bg-success/20 rounded-full flex items-center justify-center">
-                  <Sparkles classNazwa="w-10 h-10 text-success" />
+            <div className="py-8 text-center space-y-4">
+              <div className="flex justify-center">
+                <div className="w-20 h-20 bg-success/20 rounded-full flex items-center justify-center">
+                  <Sparkles className="w-10 h-10 text-success" />
                 </div>
               </div>
               <div>
-                <h3 classNazwa="text-2xl font-bold text-success mb-2">Auto Trading is Now Enabled!</h3>
-                <p classNazwa="text-lg text-muted-foreground">Your Auto Trading assistant is active</p>
-                <p classNazwa="text-sm text-muted-foreground mt-2">Our Auto will analyze market conditions and optimize your portfolio 24/7</p>
+                <h3 className="text-2xl font-bold text-success mb-2">Auto Trading is Now Enabled!</h3>
+                <p className="text-lg text-muted-foreground">Your Auto Trading assistant is active</p>
+                <p className="text-sm text-muted-foreground mt-2">Our Auto will analyze market conditions and optimize your portfolio 24/7</p>
               </div>
-              <Button onClick={() => { setAiDialogOpen(false); setAiSuccess(false); }} classNazwa="mt-4">
+              <Button onClick={() => { setAiDialogOpen(false); setAiSuccess(false); }} className="mt-4">
                 Got it
               </Button>
             </div>
           ) : aiTradingEnabled ? (
             <>
               <DialogHeader>
-                <DialogTitle classNazwa="flex items-center gap-2">
-                  <Bot classNazwa="w-5 h-5 text-success" />
+                <DialogTitle className="flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-success" />
                   Auto Trading Management
                 </DialogTitle>
                 <DialogDescription>
                   Auto Trading is currently active on your account
                 </DialogDescription>
               </DialogHeader>
-              <div classNazwa="py-4 space-y-3">
-                <div classNazwa="flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
-                  <CheckCircle2 classNazwa="w-5 h-5 text-success mt-0.5" />
+              <div className="py-4 space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
+                  <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
                   <div>
-                    <p classNazwa="font-medium text-success">Auto Trading Active</p>
-                    <p classNazwa="text-sm text-muted-foreground">Your portfolio is being optimized automatically</p>
+                    <p className="font-medium text-success">Auto Trading Active</p>
+                    <p className="text-sm text-muted-foreground">Your portfolio is being optimized automatically</p>
                   </div>
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setAiDialogOpen(false)} classNazwa="bg-transparent">Zamknij</Button>
+                <Button variant="outline" onClick={() => setAiDialogOpen(false)} className="bg-transparent">Zamknij</Button>
                 <Button variant="destructive" onClick={handleDisableAiTrading} disabled={enablingAi}>
                   {enablingAi ? 'Disabling...' : 'Disable Auto Trading'}
                 </Button>
@@ -1131,33 +1131,33 @@ export default function PortfelPage() {
           ) : (
             <>
               <DialogHeader>
-                <DialogTitle classNazwa="flex items-center gap-2">
-                  <Bot classNazwa="w-5 h-5 text-primary" />
+                <DialogTitle className="flex items-center gap-2">
+                  <Bot className="w-5 h-5 text-primary" />
                   Enable Auto Trading
                 </DialogTitle>
                 <DialogDescription>
                   Let our advanced Auto algorithms analyze market trends and execute optimal trades for your portfolio.
                 </DialogDescription>
               </DialogHeader>
-              <div classNazwa="py-4 space-y-3">
-                <div classNazwa="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                  <Sparkles classNazwa="w-5 h-5 text-primary mt-0.5" />
+              <div className="py-4 space-y-3">
+                <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                  <Sparkles className="w-5 h-5 text-primary mt-0.5" />
                   <div>
-                    <p classNazwa="font-medium">Smart Analysis</p>
-                    <p classNazwa="text-sm text-muted-foreground">Auto monitors 100+ market indicators 24/7</p>
+                    <p className="font-medium">Smart Analysis</p>
+                    <p className="text-sm text-muted-foreground">Auto monitors 100+ market indicators 24/7</p>
                   </div>
                 </div>
-                <div classNazwa="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
-                  <TrendingUp classNazwa="w-5 h-5 text-success mt-0.5" />
+                <div className="flex items-start gap-3 p-3 bg-muted/50 rounded-lg">
+                  <TrendingUp className="w-5 h-5 text-success mt-0.5" />
                   <div>
-                    <p classNazwa="font-medium">Optimized Returns</p>
-                    <p classNazwa="text-sm text-muted-foreground">Maximize profits while minimizing risks</p>
+                    <p className="font-medium">Optimized Returns</p>
+                    <p className="text-sm text-muted-foreground">Maximize profits while minimizing risks</p>
                   </div>
                 </div>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setAiDialogOpen(false)} classNazwa="bg-transparent">Anuluj</Button>
-                <Button onClick={handleEnableAiTrading} disabled={enablingAi} classNazwa="gap-2">
+                <Button variant="outline" onClick={() => setAiDialogOpen(false)} className="bg-transparent">Anuluj</Button>
+                <Button onClick={handleEnableAiTrading} disabled={enablingAi} className="gap-2">
                   {enablingAi ? 'Enabling...' : 'Enable Auto Trading'}
                 </Button>
               </DialogFooter>

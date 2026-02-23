@@ -7,3 +7,5 @@ node_modules/
 admin/node_modules/
 admin/.next/
 *.log
+
+.vercel

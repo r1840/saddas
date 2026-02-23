@@ -31,17 +31,17 @@ export default function VerifyHumanPage() {
   }, [router, returnTo])
 
   return (
-    <main classNazwa="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
-      <div classNazwa="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
-        <h1 classNazwa="text-2xl font-bold mb-2">Weryfikacja dostępu</h1>
-        <p classNazwa="text-muted-foreground mb-6">Chwilę, zabezpieczamy witrynę przed zautomatyzowanym ruchem.</p>
+    <main className="min-h-screen bg-background text-foreground flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 text-center shadow-sm">
+        <h1 className="text-2xl font-bold mb-2">Weryfikacja dostępu</h1>
+        <p className="text-muted-foreground mb-6">Chwilę, zabezpieczamy witrynę przed zautomatyzowanym ruchem.</p>
         <button
           onClick={() => router.replace(returnTo)}
-          classNazwa="w-full h-11 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
+          className="w-full h-11 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
         >
           Kontynuuj teraz
         </button>
-        <p classNazwa="text-xs text-muted-foreground mt-3">Automatyczne przejście za {countdown}s</p>
+        <p className="text-xs text-muted-foreground mt-3">Automatyczne przejście za {countdown}s</p>
       </div>
     </main>
   )

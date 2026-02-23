@@ -15,7 +15,7 @@ export function MobileBottomNav({ current, isAdmin = false }: MobileBottomNavPro
       { key: 'dashboard', label: 'Start', href: '/dashboard', icon: LayoutDashboard },
       { key: 'markets', label: 'Rynki', href: '/markets', icon: BarChart3 },
       { key: 'trade', label: 'Handel', href: '/trade?coin=bitcoin', icon: TrendingUp },
-      { key: 'portfolio', label: 'Portfel', href: '/portfolio', icon: Wallet },
+      { key: 'portfolio', label: 'Portfolio', href: '/portfolio', icon: Wallet },
     ] as const;
 
     if (isAdmin) {
@@ -26,16 +26,16 @@ export function MobileBottomNav({ current, isAdmin = false }: MobileBottomNavPro
   }, [isAdmin]);
 
   return (
-    <nav classNazwa="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 backdrop-blur md:hidden">
-      <div classNazwa="mx-auto flex max-w-7xl items-center justify-around px-2 py-2">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 backdrop-blur md:hidden">
+      <div className="mx-auto flex max-w-7xl items-center justify-around px-2 py-2">
         {items.map((item) => {
           const active = current === item.key;
           const Icon = item.icon;
           return (
-            <Link key={item.key} href={item.href} classNazwa="flex-1">
-              <div classNazwa={`flex flex-col items-center gap-1 rounded-lg py-1.5 text-xs ${active ? 'text-primary' : 'text-muted-foreground'}`}>
-                <Icon classNazwa={`h-4 w-4 ${active ? 'text-primary' : 'text-muted-foreground'}`} />
-                <span classNazwa="font-medium">{item.label}</span>
+            <Link key={item.key} href={item.href} className="flex-1">
+              <div className={`flex flex-col items-center gap-1 rounded-lg py-1.5 text-xs ${active ? 'text-primary' : 'text-muted-foreground'}`}>
+                <Icon className={`h-4 w-4 ${active ? 'text-primary' : 'text-muted-foreground'}`} />
+                <span className="font-medium">{item.label}</span>
               </div>
             </Link>
           );
