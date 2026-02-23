@@ -43,7 +43,7 @@ export default function LandingPage() {
       <div className="bg-gradient-to-r from-success via-success/90 to-success text-white py-3 text-center font-semibold text-sm md:text-base sticky top-0 z-[60] shadow-lg">
         <div className="flex items-center justify-center gap-2">
           <Star className="w-4 h-4 fill-white" />
-          <span>CODE <span className="px-2 py-1 bg-white/20 rounded font-bold mx-1">BONUS</span> FOR 15% BONUS ON ALL FIRST DEPOSITS</span>
+          <span>KOD <span className="px-2 py-1 bg-white/20 rounded font-bold mx-1">BONUS</span> DLA 15% BONUSU OD PIERWSZEJ WPŁATY</span>
           <Star className="w-4 h-4 fill-white" />
         </div>
       </div>
@@ -96,15 +96,15 @@ export default function LandingPage() {
             <div className="text-center space-y-8 max-w-4xl mx-auto">
               <Badge variant="secondary" className="px-4 py-1.5 text-sm">
                 <Star className="w-3.5 h-3.5 mr-1.5 fill-primary text-primary" />
-                Trusted by thousands of investors
+                Zaufanie tysięcy inwestorów
               </Badge>
               
               <h1 className="text-5xl md:text-7xl font-bold text-balance leading-[1.1] tracking-tight">
-                Jump start your crypto portfolio
+                Rozpocznij swój portfel krypto
               </h1>
               
               <p className="text-xl md:text-2xl text-muted-foreground text-pretty max-w-3xl mx-auto leading-relaxed">
-                CryptoVest is the easiest place to buy and sell cryptocurrency. Sign up and get started today.
+                CryptoVest to najprostsze miejsce do kupna i sprzedaży kryptowalut. Załóż konto i zacznij już dziś.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
@@ -116,7 +116,7 @@ export default function LandingPage() {
                 </Link>
                 <Link href="/markets">
                   <Button size="lg" variant="outline" className="w-full sm:w-auto text-base px-8 h-12 bg-transparent">
-                    Explore Rynki
+                    Przeglądaj rynki
                   </Button>
                 </Link>
               </div>
@@ -124,7 +124,7 @@ export default function LandingPage() {
               {cryptos.length > 0 && (
                 <div className="mt-16 p-6 bg-card border border-border rounded-2xl shadow-2xl">
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-sm font-semibold text-muted-foreground">LIVE PRICES</h3>
+                    <h3 className="text-sm font-semibold text-muted-foreground">CENY NA ŻYWO</h3>
                     <Link href="/markets" className="text-sm text-primary hover:underline">
                       Zobacz wszystko
                     </Link>
@@ -160,10 +160,10 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
-                Create your cryptocurrency portfolio today
+                Stwórz swój portfel kryptowalut już dziś
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-                CryptoVest has a variety of features that make it the best place to start trading
+                CryptoVest oferuje funkcje, które czynią go najlepszym miejscem do rozpoczęcia handlu
               </p>
             </div>
 
@@ -173,7 +173,7 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
                     <BarChart3 className="w-7 h-7 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold">Manage your portfolio</h3>
+                  <h3 className="text-xl font-bold">Zarządzaj swoim portfelem</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Track all your crypto investments in one place with real-time updates and comprehensive analytics.
                   </p>
@@ -185,9 +185,9 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-success/10 rounded-2xl flex items-center justify-center">
                     <Zap className="w-7 h-7 text-success" />
                   </div>
-                  <h3 className="text-xl font-bold">Instant trading</h3>
+                  <h3 className="text-xl font-bold">Natychmiastowy handel</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Execute trades instantly with our advanced trading engine. No delays, no hassles.
+                    Wykonuj transakcje natychmiast dzięki zaawansowanemu silnikowi handlowemu. Bez opóźnień i bez problemów.
                   </p>
                 </CardContent>
               </Card>
@@ -197,7 +197,7 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-center">
                     <Lock className="w-7 h-7 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold">Secure storage</h3>
+                  <h3 className="text-xl font-bold">Bezpieczne przechowywanie</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Your data and assets are protected with bank-level security and encryption.
                   </p>
@@ -209,7 +209,7 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-success/10 rounded-2xl flex items-center justify-center">
                     <Wallet className="w-7 h-7 text-success" />
                   </div>
-                  <h3 className="text-xl font-bold">Vault protection</h3>
+                  <h3 className="text-xl font-bold">Ochrona portfela</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Keep your crypto safe with our advanced portfolio protection and monitoring systems.
                   </p>
@@ -221,7 +221,7 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-primary/10 rounded-2xl flex items-center justify-between">
                     <Smartphone className="w-7 h-7 text-primary" />
                   </div>
-                  <h3 className="text-xl font-bold">Mobile apps</h3>
+                  <h3 className="text-xl font-bold">Aplikacje mobilne</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Fully responsive design that works seamlessly on mobile, tablet, and desktop.
                   </p>
@@ -233,9 +233,9 @@ export default function LandingPage() {
                   <div className="w-14 h-14 bg-success/10 rounded-2xl flex items-center justify-center">
                     <Globe className="w-7 h-7 text-success" />
                   </div>
-                  <h3 className="text-xl font-bold">Industry leading</h3>
+                  <h3 className="text-xl font-bold">Lider branży</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Access 100+ cryptocurrencies with real-time market data from industry leaders.
+                    Uzyskaj dostęp do ponad 100 kryptowalut z danymi rynkowymi w czasie rzeczywistym.
                   </p>
                 </CardContent>
               </Card>
@@ -249,21 +249,21 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-3 gap-12 text-center">
               <div className="space-y-2">
                 <div className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
-                  Secure
+                  Bezpieczna
                 </div>
-                <p className="text-lg text-muted-foreground">Trading Platform</p>
+                <p className="text-lg text-muted-foreground">Platforma handlowa</p>
               </div>
               <div className="space-y-2">
                 <div className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-success to-success/70">
                   100+
                 </div>
-                <p className="text-lg text-muted-foreground">Cryptocurrencies</p>
+                <p className="text-lg text-muted-foreground">Kryptowaluty</p>
               </div>
               <div className="space-y-2">
                 <div className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70">
                   24/7
                 </div>
-                <p className="text-lg text-muted-foreground">Market Access</p>
+                <p className="text-lg text-muted-foreground">Dostęp do rynku</p>
               </div>
             </div>
           </div>
@@ -274,10 +274,10 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
-                Get started in a few minutes
+                Zacznij w kilka minut
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-                Start trading cryptocurrency in three simple steps
+                Rozpocznij handel kryptowalutami w trzech prostych krokach
               </p>
             </div>
 
@@ -287,7 +287,7 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto shadow-lg shadow-primary/20">
                     1
                   </div>
-                  <h3 className="text-2xl font-bold">Create an account</h3>
+                  <h3 className="text-2xl font-bold">Utwórz konto</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Sign up with your email and verify your identity in minutes
                   </p>
@@ -299,7 +299,7 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto shadow-lg shadow-primary/20">
                     2
                   </div>
-                  <h3 className="text-2xl font-bold">Explore markets</h3>
+                  <h3 className="text-2xl font-bold">Przeglądaj rynki</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Browse 100+ cryptocurrencies with real-time market data
                   </p>
@@ -311,9 +311,9 @@ export default function LandingPage() {
                   <div className="w-16 h-16 bg-primary text-primary-foreground rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto shadow-lg shadow-primary/20">
                     3
                   </div>
-                  <h3 className="text-2xl font-bold">Start trading</h3>
+                  <h3 className="text-2xl font-bold">Zacznij handlować</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Buy and sell crypto instantly with real-time market prices
+                    Kupuj i sprzedawaj krypto natychmiast po cenach rynkowych na żywo
                   </p>
                 </div>
               </div>
@@ -328,23 +328,23 @@ export default function LandingPage() {
               <div className="space-y-6">
                 <Badge variant="secondary" className="px-4 py-1.5">
                   <Shield className="w-3.5 h-3.5 mr-1.5" />
-                  Industry-leading security
+                  Bezpieczeństwo klasy premium
                 </Badge>
                 
                 <h2 className="text-4xl md:text-5xl font-bold text-balance">
-                  The most trusted cryptocurrency platform
+                  Najbardziej zaufana platforma kryptowalutowa
                 </h2>
                 
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  We believe CryptoVest is the most secure way to trade and manage cryptocurrency. 
-                  Here are a few reasons why.
+                  Uważamy, że CryptoVest to najbezpieczniejszy sposób handlu i zarządzania kryptowalutami.
+                  Oto kilka powodów dlaczego.
                 </p>
 
                 <div className="space-y-4 pt-4">
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-6 h-6 text-success mt-0.5 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold mb-1">Advanced encryption</h4>
+                      <h4 className="font-semibold mb-1">Zaawansowane szyfrowanie</h4>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         Your personal data and portfolio are protected with bank-level encryption
                       </p>
@@ -354,9 +354,9 @@ export default function LandingPage() {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-6 h-6 text-success mt-0.5 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold mb-1">Secure sessions</h4>
+                      <h4 className="font-semibold mb-1">Bezpieczna sessions</h4>
                       <p className="text-muted-foreground text-sm leading-relaxed">
-                        Advanced session management keeps your account safe and secure
+                        Zaawansowane zarządzanie sesjami chroni Twoje konto
                       </p>
                     </div>
                   </div>
@@ -364,7 +364,7 @@ export default function LandingPage() {
                   <div className="flex items-start gap-3">
                     <CheckCircle2 className="w-6 h-6 text-success mt-0.5 flex-shrink-0" />
                     <div>
-                      <h4 className="font-semibold mb-1">Privacy focused</h4>
+                      <h4 className="font-semibold mb-1">Nacisk na prywatność</h4>
                       <p className="text-muted-foreground text-sm leading-relaxed">
                         We never share your personal information without your consent
                       </p>
@@ -377,9 +377,9 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-br from-primary/10 to-success/10 rounded-3xl p-8 border border-border shadow-2xl">
                   <div className="bg-card rounded-2xl p-6 space-y-6">
                     <div className="flex items-center justify-between pb-4 border-b border-border">
-                      <h3 className="font-bold text-lg">Your Portfolio</h3>
+                      <h3 className="font-bold text-lg">Twój portfel</h3>
                       <Badge variant="secondary" className="bg-success/10 text-success border-success/20">
-                        Secured
+                        Bezpiecznad
                       </Badge>
                     </div>
                     
@@ -394,8 +394,8 @@ export default function LandingPage() {
                         <div className="text-success font-semibold">+zł 0.00</div>
                       </div>
                       <div className="bg-muted/50 rounded-xl p-4">
-                        <div className="text-xs text-muted-foreground mb-1">Holdings</div>
-                        <div className="font-semibold">Ready to start</div>
+                        <div className="text-xs text-muted-foreground mb-1">Aktywa</div>
+                        <div className="font-semibold">Gotowe do startu</div>
                       </div>
                     </div>
                   </div>
@@ -410,14 +410,14 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-gradient-to-br from-primary to-primary/80 rounded-3xl p-8 md:p-16 text-center text-primary-foreground shadow-2xl shadow-primary/20">
               <h2 className="text-4xl md:text-5xl font-bold mb-6 text-balance">
-                Start trading today
+                Zacznij handlować today
               </h2>
               <p className="text-xl opacity-90 max-w-2xl mx-auto mb-8 text-pretty leading-relaxed">
-                Join thousands of investors and start building your cryptocurrency portfolio with our secure platform
+                Dołącz do tysięcy inwestorów i buduj swój portfel kryptowalut na naszej bezpiecznej platformie
               </p>
               <Link href="/register">
                 <Button size="lg" variant="secondary" className="gap-2 text-base px-8 h-12 bg-primary-foreground text-primary hover:bg-primary-foreground/90">
-                  Claim Your Bonus
+                  Odbierz swój bonus
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
@@ -430,7 +430,7 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
-                Why choose CryptoVest
+                Dlaczego CryptoVest
               </h2>
             </div>
 
@@ -440,7 +440,7 @@ export default function LandingPage() {
                   <Shield className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2">Best security practices</h3>
+                  <h3 className="text-lg font-bold mb-2">Najlepsze praktyki bezpieczeństwa</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     We use cutting-edge security measures to protect your account and personal information
                   </p>
@@ -452,9 +452,9 @@ export default function LandingPage() {
                   <TrendingUp className="w-6 h-6 text-success" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2">Real-time market data</h3>
+                  <h3 className="text-lg font-bold mb-2">Dane rynkowe na żywo</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Access live prices and market information for over 100 cryptocurrencies
+                    Uzyskaj dostęp do cen na żywo i informacji rynkowych dla ponad 100 kryptowalut
                   </p>
                 </div>
               </div>
@@ -464,7 +464,7 @@ export default function LandingPage() {
                   <BarChart3 className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold mb-2">Portfolio insights</h3>
+                  <h3 className="text-lg font-bold mb-2">Wgląd w portfel</h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Track performance, analyze trends, and make informed decisions with detailed analytics
                   </p>
@@ -478,7 +478,7 @@ export default function LandingPage() {
                 <div>
                   <h3 className="text-lg font-bold mb-2">Handel on the go</h3>
                   <p className="text-muted-foreground leading-relaxed">
-                    Manage your portfolio from anywhere with our fully responsive platform
+                    Zarządzaj swoim portfelem from anywhere with our fully responsive platform
                   </p>
                 </div>
               </div>
@@ -493,10 +493,10 @@ export default function LandingPage() {
               <CardContent className="pt-12 pb-12 text-center space-y-8">
                 <div className="space-y-4">
                   <h2 className="text-4xl md:text-5xl font-bold text-balance">
-                    Ready to start trading?
+                    Gotowe do startu trading?
                   </h2>
                   <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-                    Join CryptoVest and get instant access to 100+ cryptocurrencies and real-time market data
+                    Dołącz do CryptoVest i uzyskaj natychmiastowy dostęp do ponad 100 kryptowalut oraz danych na żywo
                   </p>
                 </div>
               </CardContent>
@@ -510,7 +510,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
             <div>
-              <h4 className="font-semibold mb-4">Company</h4>
+              <h4 className="font-semibold mb-4">Firma</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li>
                   <Link href="/about" className="hover:text-foreground transition-colors">
@@ -519,14 +519,14 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <Link href="/careers" className="hover:text-foreground transition-colors">
-                    Careers
+                    Kariera
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Products</h4>
+              <h4 className="font-semibold mb-4">Produkty</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li>
                   <Link href="/markets" className="hover:text-foreground transition-colors">
@@ -535,7 +535,7 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <Link href="/portfolio" className="hover:text-foreground transition-colors">
-                    Portfolio
+                    Portfel
                   </Link>
                 </li>
               </ul>
@@ -546,28 +546,28 @@ export default function LandingPage() {
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li>
                   <Link href="/learn" className="hover:text-foreground transition-colors">
-                    Crypto Basics
+                    Podstawy krypto
                   </Link>
                 </li>
                 <li>
                   <Link href="/learn" className="hover:text-foreground transition-colors">
-                    Trading Tips
+                    Wskazówki handlowe
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Legal</h4>
+              <h4 className="font-semibold mb-4">Informacje prawne</h4>
               <ul className="space-y-3 text-sm text-muted-foreground">
                 <li>
                   <Link href="/terms" className="hover:text-foreground transition-colors">
-                    Terms of Service
+                    Regulamin
                   </Link>
                 </li>
                 <li>
                   <Link href="/privacy" className="hover:text-foreground transition-colors">
-                    Privacy Policy
+                    Polityka prywatności
                   </Link>
                 </li>
               </ul>
@@ -579,7 +579,7 @@ export default function LandingPage() {
               <div className="w-6 h-6 bg-gradient-to-br from-primary to-primary/70 rounded-lg flex items-center justify-center">
                 <TrendingUp className="w-3.5 h-3.5 text-primary-foreground" />
               </div>
-              <span>© 2026 CryptoVest. All rights reserved.</span>
+              <span>© 2026 CryptoVest. Wszelkie prawa zastrzeżone.</span>
             </div>
           </div>
         </div>
