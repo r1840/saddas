@@ -70,7 +70,13 @@ async function initSchema(client: DbLike): Promise<void> {
 async function getDb(): Promise<DbLike> {
   if (!db) {
     if (process.env.DATABASE_URL) {
-      const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+      const connectionString = process.env.DATABASE_URL;
+      const pool = new Pool({
+        connectionString,
+        ssl: connectionString.includes('supabase.com')
+          ? { rejectUnauthorized: false }
+          : undefined,
+      });
       db = {
         query: async (text: string, params?: any[]) => {
           const res = await pool.query(text, params);
